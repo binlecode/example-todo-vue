@@ -11,7 +11,6 @@ Environment:
 * npm: `v6.13`
 * @vue/cli: `v4.2.3`
 
-
 ## Build Setup
 
 ``` bash

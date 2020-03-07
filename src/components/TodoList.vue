@@ -55,34 +55,11 @@ export default {
     }
   },
   props: {
-    todos: {
-      // load some initial data to prop via constructor function
-      // and prop constructor is invoked BEFORE data() function...
-      default: function() {
-        return [
-          {
-            id: 3,
-            title: "Cook food",
-            completed: false
-          },
-          {
-            id: 4,
-            title: "Clean up room",
-            completed: true
-          },
-          {
-            i: 5,
-            title: "Finish work",
-            completed: false
-          }
-        ];
-      }
-    }
   },
   data() {
     return {
       newTodo: "",
-      initTodos: [
+      todos: [
         {
           id: 1,
           title: "Go workout",
@@ -101,7 +78,7 @@ export default {
         {
           id: 4,
           title: "Clean up room",
-          completed: false
+          completed: true
         },
         {
           i: 5,
