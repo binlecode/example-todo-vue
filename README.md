@@ -26,7 +26,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`.
 
+The production deployment is configured to deploy to github web page.
+See `config/prod.env.js` and `deploy.sh` files for asset public path config, build and push process.
 
+The github demo webpage is [binlecode.github.io/example-todo-vue](https://binlecode.github.io/example-todo-vue/index.html)
 
 ## Build Setup
 
