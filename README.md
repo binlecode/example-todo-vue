@@ -37,6 +37,11 @@ npm run build
 serve -s docs
 ```
 
+If serve verifies, then push to remote
+```bash
+git push
+```
+
 Don't forget to go to github repo settings page and set gh-pages branch to `master/docs` folder (or any specific branch containing the `docs` folder).
 
 Now the github demo webpage is at [binlecode.github.io/example-todo-vue/index.html](https://binlecode.github.io/example-todo-vue/index.html)
