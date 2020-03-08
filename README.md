@@ -27,9 +27,21 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`.
 
 The production deployment is configured to deploy to github web page.
-See `config/prod.env.js` and `deploy.sh` files for asset public path config, build and push process.
+To avoid gh-pages blank page (not loading js) issue, use `master` branch `docs` folder as deployed content root. 
 
-The github demo webpage is [binlecode.github.io/example-todo-vue](https://binlecode.github.io/example-todo-vue/index.html)
+See `config/index.js` files for custom configuration details.
+
+Since contents are now built to `docs` folder instead of `dist`, to verify with `serve`
+```bash
+npm run build
+serve -s docs
+```
+
+Don't forget to go to github repo settings page and set gh-pages branch to `master/docs` folder (or any specific branch containing the `docs` folder).
+
+Now the github demo webpage is at [binlecode.github.io/example-todo-vue/index.html](https://binlecode.github.io/example-todo-vue/index.html)
+
+Note if in github gh-pages setting if choose `master` branch without `docs` subfolder, the web url would then be [binlecode.github.io/example-todo-vue/docs/index.html](https://binlecode.github.io/example-todo-vue/docs/index.html).
 
 ## Build Setup
 
