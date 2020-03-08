@@ -5,9 +5,9 @@
     {{ todo.title }}
     </span>
     <button
-      class="todo-item-remove button alert pull-right"
+      class="btn btn-danger btn-xs" style="padding: 0 0.25em 0 0.25em"
       @click="$emit('delete-todo', todo.id)">
-      Remove
+      x
     </button>
   </div>
 </template>

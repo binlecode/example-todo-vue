@@ -1,25 +1,32 @@
 <template>
-  <div>
-    <input
-      type="text"
-      class="input-group-field"
-      v-model="newTodo"
-      name="title"
-      @keyup.enter="addTodo"
-      placeholder="Enter New Todo"
-    />
-    <span class="input-group-button">
-      <button class="button" @click="addTodo">
-        <i class="fa fa-plus"></i>
-        Add
-      </button>
-    </span>
-    <ul>
-      <li v-for="todo in todos" :key="todo.id">
-        <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" />
-      </li>
-    </ul>
-  </div>
+  <section id="cover">
+    <div class="container">
+      <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4 todo-form text-white">
+        <div class="from-group">
+          <input
+            type="text"
+            class="form-control"
+            v-model="newTodo"
+            name="title"
+            @keyup.enter="addTodo"
+            placeholder="Enter New Todo"
+          />
+          <!-- <span class="button">
+          <button class="button" @click="addTodo">
+            +
+          </button>
+          </span>-->
+        </div>
+        <!-- <div> -->
+        <ul>
+          <li v-for="todo in todos" :key="todo.id">
+            <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" />
+          </li>
+        </ul>
+        <!-- </div> -->
+      </div>
+    </div>
+  </section>
 </template>
 
 <script type="text/javascript">
@@ -54,8 +61,7 @@ export default {
       this.todos = [];
     }
   },
-  props: {
-  },
+  props: {},
   data() {
     return {
       newTodo: "",
@@ -92,4 +98,20 @@ export default {
 </script>
 
 <style>
+#cover {
+  background: #222 url("https://source.unsplash.com/800x600/?coffee,food") center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.todo-form {
+  font-size: 18px;
+  padding: 2em;
+  background-color: rgba(0,0,0,0.3);
+  /* border-radius: 10px; */
+}
+
 </style>

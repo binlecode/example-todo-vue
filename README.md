@@ -11,6 +11,23 @@ Environment:
 * npm: `v6.13`
 * @vue/cli: `v4.2.3`
 
+Vue CLI is awesome to kick-start Vue projects, but comes with little in the way of styling.
+
+```bash
+npm install bootstrap jquery popper.js
+```
+
+And import it into the main script by adding these lines to the top of 
+`<project-root>/src/main.js`:
+```javascript
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+```
+
+The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`.
+
+
+
 ## Build Setup
 
 ``` bash
