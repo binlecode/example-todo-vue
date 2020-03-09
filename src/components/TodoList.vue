@@ -185,7 +185,8 @@ export default {
   border: 1px solid transparent;
   border-radius: 3px;
 }
-.filters li a:hover {
+.filters li a:hover,
+.filters li a.selected {
   border-color: #ffffff;
 }
 </style>
