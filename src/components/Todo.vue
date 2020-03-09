@@ -8,7 +8,7 @@
     {{ todo.title }}
     </span>
     <span class="pull-right">
-      <button class="btn btn-xs btn-outline-danger" style="padding: 0 0.25em 0 0.25em"
+      <button class="btn btn-xs btn-outline-danger btn-rm-todo"
       @click="$emit('delete-todo', todo.id)">
       x
       </button>
@@ -35,5 +35,8 @@ export default {
   }
   .pull-right {
     float: right;
+  }
+  .btn-rm-todo {
+    padding: 0 0.5em;
   }
 </style>
