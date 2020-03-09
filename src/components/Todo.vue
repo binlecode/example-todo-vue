@@ -1,9 +1,11 @@
 <template id="todo-item">
-  <div class="form-check">
-    <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="toggleComplete(todo)" />
-    <label v-bind:class="{ 'completed': todo.completed }">
+  <div class="form-group">
+    <div class="form-check-inline">
+      <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="toggleComplete(todo)" />
+    </div>
+    <span v-bind:class="{ 'completed': todo.completed }">
     {{ todo.title }}
-    </label>
+    </span>
     <span class="pull-right">
       <button class="btn btn-xs btn-outline-danger" style="padding: 0 0.25em 0 0.25em"
       @click="$emit('delete-todo', todo.id)">
