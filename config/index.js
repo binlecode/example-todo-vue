@@ -52,6 +52,7 @@ module.exports = {
     // assetsPublicPath: '/',
 
     // deployment to docs folder as alternative to gh-pages branch
+    // @see `deploy-docs.sh` file
     index: path.resolve(__dirname, '../docs/index.html'),
     assetsRoot: path.resolve(__dirname, '../docs'),
     assetsSubDirectory: 'static',
