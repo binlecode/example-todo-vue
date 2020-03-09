@@ -39,6 +39,8 @@ serve -s docs
 
 If serve verifies, then push to remote
 ```bash
+git add docs
+git commit -m 'deploy to docs folder'
 git push
 ```
 
