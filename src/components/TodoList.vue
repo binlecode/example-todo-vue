@@ -2,7 +2,6 @@
   <section id="cover">
     <div class="container">
       <div class="row">
-        <!-- <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4 todo-form text-white"> -->
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 todo-form text-white">
           <div class="from-group input-group-lg">
             <input
@@ -22,17 +21,33 @@
 
           <div>
             <ul class="list-group">
-              <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id">
+              <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
+              <li class="list-group-item clearfix" v-for="todo in filteredTodos" :key="todo.id">
                 <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" />
               </li>
             </ul>
           </div>
+
+          <footer class="footer">
+            <!-- <span>footer </span> -->
+            <ul class="filters">
+              <li>
+                <!-- <a href="#/all" :class="{selected: visibility == 'all'}">All</a> -->
+                <a href="#" :class="{selected: visibility == 'all'}" v-on:click="setVisibility('all')">All</a>
+              </li>
+              <li>
+                <!-- <a href="#/active" :class="{selected: visibility == 'active'}">Active</a> -->
+                <a href="#" :class="{selected: visibility == 'active'}" v-on:click="setVisibility('active')">Active</a>
+              </li>
+              <li>
+                <!-- <a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a> -->
+                <a href="#" :class="{selected: visibility == 'completed'}" v-on:click="setVisibility('completed')">Completed</a>
+              </li>
+            </ul>
+            <!-- <span class="pull-right">place-holder</span> -->
+          </footer>
         </div>
       </div>
-    </div>
-
-    <div>
-      <span class="glyphicon glyphicon-flag" aria-hidden="true">gly</span>
     </div>
   </section>
 </template>
@@ -45,6 +60,9 @@ export default {
   name: "todoList",
   components: { Todo },
   methods: {
+    setVisibility(vis) {
+      this.visibility = vis;
+    },
     addTodo() {
       if (this.newTodo) {
         this.todos.push({
@@ -69,9 +87,23 @@ export default {
       this.todos = [];
     }
   },
+  // computed properties
+  computed: {
+    filteredTodos: function() {
+      if (this.visibility === 'active') {
+        return this.todos.filter(todo => todo.completed !== true);
+      } else if (this.visibility === 'completed') {
+        return this.todos.filter(todo => todo.completed === true);
+      } else {
+        return this.todos;
+      }
+    }
+  },
   props: {},
   data() {
     return {
+      visibility: "all",
+      // visibility: "active",
       newTodo: "",
       todos: [
         {
@@ -127,5 +159,33 @@ export default {
 }
 .list-group-item:hover {
   border: 1px solid #fff;
+}
+.footer {
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+.filters li {
+  display: inline;
+}
+.filters li a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.filters li a:hover {
+  border-color: #ffffff;
 }
 </style>
