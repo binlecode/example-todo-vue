@@ -1,5 +1,5 @@
 <template id="todo-item">
-  <div class="form-group">
+  <div>
     <!-- form-check-inline class makes checkbox aligned with following text span element -->
     <div class="form-check-inline">
       <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="toggleComplete(todo)" />
