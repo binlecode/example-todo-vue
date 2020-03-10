@@ -12,17 +12,11 @@
               @keyup.enter="addTodo"
               placeholder="Enter New Todo"
             />
-            <!-- <span class="button">
-          <button class="button" @click="addTodo">
-            +
-          </button>
-            </span>-->
           </div>
-
           <div>
-            <ul class="list-group todo-list">
+            <ul class="todo-list">
               <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
-              <li class="list-group-item" :class="{completed: todo.completed, editing: todo == editedTodo}" v-for="todo in filteredTodos" :key="todo.id">
+              <li class="list-group-item" :class="{ editing: todo == editedTodo }" v-for="todo in filteredTodos" :key="todo.id">
                 <Todo :todo="todo"
                       v-on:delete-todo="deleteTodo"
                       v-on:toggle-todo-complete="toggleTodoComplete"
@@ -32,7 +26,6 @@
               </li>
             </ul>
           </div>
-
           <footer class="footer">
             <!-- <span>footer </span> -->
             <ul class="filters">
@@ -53,7 +46,6 @@
           </footer>
         </div>
       </div>
-      <h1 style="color: white;">todo under editing: {{editedTodo}}</h1>
     </div>
   </section>
 </template>
@@ -202,12 +194,15 @@ export default {
   /* border-radius: 10px; */
 }
 .todo-list {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 .todo-list .list-group-item {
+  padding: 0.75rem 0.75rem;
   background: transparent;
 }
-.list-group-item:hover {
+.todo-list .list-group-item:hover {
   border: 1px solid #fff;
 }
 .footer {

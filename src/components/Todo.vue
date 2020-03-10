@@ -1,25 +1,20 @@
 <template id="todo-item">
-  <div class="form-inline">
-    <!-- form-check-inline class makes checkbox aligned with following text span element -->
-    <div class="form-check-inline">
-      <input class="form-check-input" type="checkbox" v-model="todo.completed"
-             v-on:click="$emit('toggle-todo-complete', todo.id)" />
-    </div>
-    <!-- this div will hide in 'li.editing' mode -->
+  <div class="">
     <div class="view">
-      <!-- <label @dblclick="$emit('edit-todo', todo)">{{ todo.title }}</label> -->
-      <label @dblclick="editTodo">{{ todo.title }}</label>
-    </div>
-    <!-- this input will hide in li non-editing mode -->
-    <input class="edit" type="text" v-model="inputTodo.title" v-todo-focus="origTodoTitle != null"
-      @keyup.enter="doneEditTodo"
-      @keyup.esc="cancelEditTodo" />
-    <span class="pull-right">
+      <input type="checkbox" v-model="todo.completed"
+               v-on:click="$emit('toggle-todo-complete', todo.id)" />
+      <label :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</label>
+      <span class="pull-right">
       <button class="btn btn-xs btn-outline-danger btn-rm-todo"
               @click="$emit('delete-todo', todo.id)">
       x
       </button>
     </span>
+    </div>
+    <!-- this input will hide in li non-editing mode -->
+    <input class="edit" type="text" v-model="inputTodo.title" v-todo-focus="origTodoTitle != null"
+      @keyup.enter="doneEditTodo"
+      @keyup.esc="cancelEditTodo" />
   </div>
 </template>
 
