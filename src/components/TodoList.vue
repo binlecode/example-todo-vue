@@ -23,7 +23,7 @@
             <ul class="list-group">
               <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
               <li class="list-group-item clearfix" v-for="todo in filteredTodos" :key="todo.id">
-                <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" />
+                <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" v-on:toggle-todo-complete="toggleTodoComplete"/>
               </li>
             </ul>
           </div>
@@ -55,38 +55,13 @@
 <script type="text/javascript">
 import { v4 as uuidv4 } from "uuid";
 import Todo from "./Todo";
+import axios from 'axios';
+
+const baseUrl = 'http://localhost:3000/todos';
 
 export default {
   name: "todoList",
   components: { Todo },
-  methods: {
-    setVisibility(vis) {
-      this.visibility = vis;
-    },
-    addTodo() {
-      if (this.newTodo) {
-        this.todos.push({
-          id: uuidv4(),
-          title: this.newTodo,
-          completed: false
-        });
-        this.newTodo = "";
-      }
-    },
-    toggleTodoComplete(todo) {
-      todo.completed = !todo.completed;
-    },
-    deleteTodo(todoId) {
-      console.log("msg delete-todo: " + todoId);
-      this.todos = this.todos.filter(todo => todo.id !== todoId);
-    },
-    clearCompleted() {
-      this.todos.filter(!this.completed);
-    },
-    clearAll() {
-      this.todos = [];
-    }
-  },
   // computed properties
   computed: {
     filteredTodos: function() {
@@ -100,37 +75,98 @@ export default {
     }
   },
   props: {},
+  // load data from json-server
+  async created() {
+    try {
+      const res = await axios.get(baseUrl);
+      this.todos = res.data;
+    } catch (e) {
+      console.log(e);
+    }
+  },
+  methods: {
+    setVisibility(vis) {
+      this.visibility = vis;
+    },
+    async addTodo() {
+      if (this.newTodo) {
+        const res = await axios.post(baseUrl, {
+          id: uuidv4(),
+          title: this.newTodo,
+          completed: false
+        });
+        // add newly added todo to todos list
+        this.todos = [...this.todos, res.data];
+        // reset new todo
+        this.newTodo = "";
+      }
+    },
+    async toggleTodoComplete(todoId) {
+      console.log("toggle todo: " + todoId);
+      try {
+        let todo = this.todos.find(td => td.id === todoId);
+        todo.completed = !todo.completed;
+        await axios.patch(baseUrl + `/${todoId}`, {
+          completed: todo.completed
+        })
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async deleteTodo(todoId) {
+      console.log("msg delete-todo: " + todoId);
+      try {
+        const res1 = await axios.delete(baseUrl + `/${todoId}`);
+        console.log('delete successful: ' + res1.status);
+        if (res1.status > 200) {
+          console.log('Deletion error: ' + res1.status);
+          return;
+        }
+        // reload todos list from backend
+        const res = await axios.get(baseUrl);
+        this.todos = res.data;
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    clearCompleted() {
+      this.todos.filter(!this.completed);
+    },
+    clearAll() {
+      this.todos = [];
+    }
+  },
   data() {
     return {
       visibility: "all",
       // visibility: "active",
       newTodo: "",
       todos: [
-        {
-          id: 1,
-          title: "Go workout",
-          completed: false
-        },
-        {
-          id: 2,
-          title: "Do laundry",
-          completed: false
-        },
-        {
-          id: 3,
-          title: "Cook food",
-          completed: false
-        },
-        {
-          id: 4,
-          title: "Clean up room",
-          completed: true
-        },
-        {
-          i: 5,
-          title: "Finish work",
-          completed: false
-        }
+        // {
+        //   id: 1,
+        //   title: "Go workout",
+        //   completed: false
+        // },
+        // {
+        //   id: 2,
+        //   title: "Do laundry",
+        //   completed: false
+        // },
+        // {
+        //   id: 3,
+        //   title: "Cook food",
+        //   completed: false
+        // },
+        // {
+        //   id: 4,
+        //   title: "Clean up room",
+        //   completed: true
+        // },
+        // {
+        //   id: 5,
+        //   title: "Finish work",
+        //   completed: false
+        // }
       ]
     };
   }

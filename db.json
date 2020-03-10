@@ -1,0 +1,29 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "title": "Go workout",
+      "completed": false
+    },
+    {
+      "id": 4,
+      "title": "Clean up room",
+      "completed": true
+    },
+    {
+      "id": "0af05434-d57b-4dbd-801f-1a0ae0cf35e2",
+      "title": "add one to json-server",
+      "completed": false
+    },
+    {
+      "id": "4413eca6-f51d-481b-b819-13a8b3f0a85b",
+      "title": "brew a mug of coffee",
+      "completed": false
+    },
+    {
+      "id": "3f9089a1-3194-4cfc-b566-2e957350e325",
+      "title": "play tennis",
+      "completed": false
+    }
+  ]
+}

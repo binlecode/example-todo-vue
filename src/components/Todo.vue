@@ -2,7 +2,8 @@
   <div>
     <!-- form-check-inline class makes checkbox aligned with following text span element -->
     <div class="form-check-inline">
-      <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="toggleComplete(todo)" />
+      <!-- <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="toggleComplete(todo)" /> -->
+      <input class="form-check-input" type="checkbox" v-model="todo.completed" v-on:click="$emit('toggle-todo-complete', todo.id)" />
     </div>
     <span v-bind:class="{ 'completed': todo.completed }">
     {{ todo.title }}
@@ -21,10 +22,10 @@ export default {
   name: 'Todo',
   props: ['todo'],
   methods: {
-    toggleComplete(todo) {
-      console.log("toggle todo: " + todo.completed);
-      todo.completed = !todo.completed;
-    }
+    // toggleComplete(todo) {
+    //   console.log("toggle todo: " + todo.completed);
+    //   todo.completed = !todo.completed;
+    // }
   }
 }
 </script>

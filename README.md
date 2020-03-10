@@ -52,6 +52,17 @@ Now the github demo webpage is at [binlecode.github.io/example-todo-vue/index.ht
 
 Note if in github gh-pages setting if choose `master` branch without `docs` subfolder, the web url would then be [binlecode.github.io/example-todo-vue/docs/index.html](https://binlecode.github.io/example-todo-vue/docs/index.html).
 
+## json-server as backend REST data endpoints
+
+Switch to json-server branch, then:
+
+```bash
+npm install -g json-server
+json-server --watch db.json
+npm run dev
+```
+
+
 ## todo
 
 - [x] support filter by 'all', 'active', and 'completed'
