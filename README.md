@@ -58,6 +58,7 @@ Switch to json-server branch, then:
 
 ```bash
 npm install -g json-server
+npm install axios
 json-server --watch db.json
 npm run dev
 ```
