@@ -84,12 +84,20 @@ export default {
   .todo-list li.editing .view {
     display: none;
   }
+  /* this is for title input in edit mode */
   .todo-list li.editing .edit {
     display: inline-block;
-    /* width: 100%; */
-    padding: 12px 16px;
-    margin: 0 0 0 43px;
+    width: 100%;
+    /*padding: 12px 16px;*/
+    /*margin: 0 0 0 43px;*/
   }
+  .todo-list li input[type="text"] {
+    border-radius: .3rem;
+    outline: none;
+    padding: .25rem .25rem;
+    box-shadow:none !important;
+  }
+  /* this is for title input in non-edit mode */
   .todo-list li .edit {
     display: none;
   }
