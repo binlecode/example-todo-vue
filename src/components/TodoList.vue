@@ -56,7 +56,8 @@ import Todo from "./Todo";
 import axios from 'axios';
 
 // const baseUrl = 'http://localhost:3000/todos';
-const baseUrl = 'http://dot:3000/todos';
+// const baseUrl = 'http://dot:3000/todos';
+const baseUrl = 'http://134.122.19.243:3000/todos';
 
 export default {
   name: "todoList",
