@@ -67,10 +67,12 @@ npm run dev
 ## todo
 
 - [x] support filter by 'all', 'active', and 'completed'
+- [ ] basic todo input text validation before save
+- [x] support inline todo text modification
 - [ ] pagination and total count
 - [ ] sort todos by time DESC
-- [ ] add backend storage for todo CRUD
-- [ ] move on-page styles to separated .css file and load it in .vue file
+- [x] add backend RESTful endpoint for todo CRUD (using Axios lib)
+- [ ] move same-page inline styles and js to separated .css file and load it in .vue file
 
 ## Build Setup
 

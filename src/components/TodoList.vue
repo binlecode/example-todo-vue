@@ -20,10 +20,15 @@
           </div>
 
           <div>
-            <ul class="list-group">
+            <ul class="list-group todo-list">
               <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
-              <li class="list-group-item clearfix" v-for="todo in filteredTodos" :key="todo.id">
-                <Todo v-bind:todo="todo" v-on:delete-todo="deleteTodo" v-on:toggle-todo-complete="toggleTodoComplete"/>
+              <li class="list-group-item" :class="{completed: todo.completed, editing: todo == editedTodo}" v-for="todo in filteredTodos" :key="todo.id">
+                <Todo :todo="todo"
+                      v-on:delete-todo="deleteTodo"
+                      v-on:toggle-todo-complete="toggleTodoComplete"
+                      v-on:edit-todo="editTodo"
+                      v-on:done-edit-todo="doneEditTodo"
+                      v-on:cancel-edit-todo="cancelEditTodo" />
               </li>
             </ul>
           </div>
@@ -48,6 +53,7 @@
           </footer>
         </div>
       </div>
+      <h1 style="color: white;">todo under editing: {{editedTodo}}</h1>
     </div>
   </section>
 </template>
@@ -57,7 +63,8 @@ import { v4 as uuidv4 } from "uuid";
 import Todo from "./Todo";
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3000/todos';
+// const baseUrl = 'http://localhost:3000/todos';
+const baseUrl = 'http://dot:3000/todos';
 
 export default {
   name: "todoList",
@@ -75,6 +82,16 @@ export default {
     }
   },
   props: {},
+  data() {
+    return {
+      visibility: "all",
+      // visibility: "active",
+      newTodo: "",
+      // editedTodo is used to trigger editing view of todo entry in the list
+      editedTodo: null,
+      todos: []
+    };
+  },
   // load data from json-server
   async created() {
     try {
@@ -130,45 +147,39 @@ export default {
       }
     },
     clearCompleted() {
-      this.todos.filter(!this.completed);
+      // todo: implement me
     },
     clearAll() {
-      this.todos = [];
+      // todo: implement me
+    },
+    editTodo(todo) {
+      // setting edited todo to target todo will enable edit mode for the todo li view
+      this.editedTodo = todo;
+    },
+    async editTodoTitle(todoId, todoTitle) {
+      console.log(`update todo ${todoId} with title: ${todoTitle}`);
+      try {
+        let todo = this.todos.find(td => td.id === todoId);
+        todo.title = todoTitle;
+        await axios.patch(baseUrl + `/${todoId}`, {
+          title: todo.title
+        })
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async doneEditTodo(todoIdAndTitle) {
+      await this.editTodoTitle(todoIdAndTitle.id, todoIdAndTitle.title);
+      // reset editedTodo to exit edit mode
+      this.editedTodo = null;
+    },
+    cancelEditTodo(todoIdAndOrigTitle){
+      // reset todo title to original value
+      let todo = this.todos.find(td => td.id === todoIdAndOrigTitle.id);
+      todo.title = todoIdAndOrigTitle.origTitle;
+      // reset
+      this.editedTodo = null;
     }
-  },
-  data() {
-    return {
-      visibility: "all",
-      // visibility: "active",
-      newTodo: "",
-      todos: [
-        // {
-        //   id: 1,
-        //   title: "Go workout",
-        //   completed: false
-        // },
-        // {
-        //   id: 2,
-        //   title: "Do laundry",
-        //   completed: false
-        // },
-        // {
-        //   id: 3,
-        //   title: "Cook food",
-        //   completed: false
-        // },
-        // {
-        //   id: 4,
-        //   title: "Clean up room",
-        //   completed: true
-        // },
-        // {
-        //   id: 5,
-        //   title: "Finish work",
-        //   completed: false
-        // }
-      ]
-    };
   }
 };
 </script>
@@ -190,7 +201,10 @@ export default {
   background-color: rgba(0, 0, 0, 0.4);
   /* border-radius: 10px; */
 }
-.list-group-item {
+.todo-list {
+  list-style: none;
+}
+.todo-list .list-group-item {
   background: transparent;
 }
 .list-group-item:hover {
