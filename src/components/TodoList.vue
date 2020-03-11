@@ -16,8 +16,9 @@
           <div>
             <ul class="todo-list">
               <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
-              <li class="list-group-item" :class="{ editing: todo == editedTodo }" v-for="todo in filteredTodos" :key="todo.id">
-                <Todo :todo="todo"
+              <li class="list-group-item" :class="{ editing: todo == editedTodo }"
+                  v-for="todo in filteredTodos" v-bind:key="todo.id">
+                <Todo v-bind:todo="todo"
                       v-on:delete-todo="deleteTodo"
                       v-on:toggle-todo-complete="toggleTodoComplete"
                       v-on:edit-todo="editTodo"
@@ -167,10 +168,7 @@ export default {
       this.editedTodo = null;
     },
     cancelEditTodo(todoIdAndOrigTitle){
-      // reset todo title to original value
-      let todo = this.todos.find(td => td.id === todoIdAndOrigTitle.id);
-      todo.title = todoIdAndOrigTitle.origTitle;
-      // reset
+      // reset editedTodo to exit edit mode
       this.editedTodo = null;
     }
   }

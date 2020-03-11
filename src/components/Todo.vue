@@ -12,7 +12,8 @@
     </span>
     </div>
     <!-- this input will hide in li non-editing mode -->
-    <input class="edit" type="text" v-model.trim="inputTodo.title" v-todo-focus="origTodoTitle != null"
+    <!-- <input class="edit" type="text" v-model.trim="inputTodo.title" v-todo-focus="origTodoTitle != null" -->
+    <input class="edit" type="text" v-model.trim="inputTodoTitle" v-todo-focus="origTodoTitle != null"
       @keyup.enter="doneEditTodo"
       @keyup.esc="cancelEditTodo" />
   </div>
@@ -26,19 +27,34 @@ export default {
   },
   data() {
     return {
-      origTodoTitle: null
+      origTodoTitle: null,
+      inputTodoTitle: this.todo.title
     }
   },
   computed: {
-    // because prop is one directional (parent->child) and read-only
-    // this is to map the todo prop to input v-model
+    // Because prop is one directional (parent->child) and read-only,
+    // we can use computed data to map the todo prop to input v-model.
+    // Also according to offical doc: ````
+    // that objects and arrays in JavaScript are passed by reference,
+    // so if the prop is an array or object, mutating the object or
+    // array itself inside the child component will affect parent state
+    // ```
+    // Therefore: mirror computed varible directly on prop todo will work,
+    // but, it is discouraged as it is violating one way data binding.
+    // ...
+    // Therefore, we will customize the input with separate v-bind and
+    // v-on:change event handling
+    // @see `inputTodoTitle` in data section above
+    //
+    // the code below is discoraged as it violates one way data change
     inputTodo: {
       get() {
-        return this.todo;
-      },
-      set(val) {
-        this.$emit('input', val);
+        return this.todo.title;
       }
+      // no setter needed, as change is on todo.title (not todo itself)
+      // set(val) {
+      // this.$emit('input', val);
+      // }
     }
   },
   methods: {
@@ -49,11 +65,15 @@ export default {
       this.$emit('edit-todo', this.todo);
     },
     doneEditTodo() {
-      this.$emit('done-edit-todo', {id: this.todo.id, title: this.inputTodo.title});
+      console.log('input todo title: ' + this.inputTodoTitle);
+      this.$emit('done-edit-todo', {id: this.todo.id, title: this.inputTodoTitle});
       this.origTodoTitle = null;
     },
     cancelEditTodo() {
       this.$emit('cancel-edit-todo', { id: this.todo.id, origTitle: this.origTodoTitle });
+      // reset input text to before-change value from cache
+      this.inputTodoTitle = this.origTodoTitle;
+      // clear before-change cache value
       this.origTodoTitle = null;
     }
   },
