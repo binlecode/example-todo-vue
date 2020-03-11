@@ -12,7 +12,7 @@
     </span>
     </div>
     <!-- this input will hide in li non-editing mode -->
-    <input class="edit" type="text" v-model="inputTodo.title" v-todo-focus="origTodoTitle != null"
+    <input class="edit" type="text" v-model.trim="inputTodo.title" v-todo-focus="origTodoTitle != null"
       @keyup.enter="doneEditTodo"
       @keyup.esc="cancelEditTodo" />
   </div>
