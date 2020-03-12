@@ -5,11 +5,11 @@
                v-on:click="$emit('toggle-todo-complete', todo.id)" />
       <label :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</label>
       <span class="pull-right">
-      <button class="btn btn-xs btn-outline-danger btn-rm-todo"
-              @click="$emit('delete-todo', todo.id)">
-      x
-      </button>
-    </span>
+        <button class="btn btn-xs btn-outline-danger btn-rm-todo"
+                @click="$emit('delete-todo', todo.id)">
+        x
+        </button>
+      </span>
     </div>
     <!-- this input will hide in li non-editing mode -->
     <!-- <input class="edit" type="text" v-model.trim="inputTodo.title" v-todo-focus="origTodoTitle != null" -->
@@ -100,6 +100,7 @@ export default {
   }
   .btn-rm-todo {
     padding: 0 0.5em;
+    font-size: 0.75rem;
   }
   .todo-list li.editing .view {
     display: none;
