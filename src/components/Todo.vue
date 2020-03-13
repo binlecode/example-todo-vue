@@ -105,6 +105,9 @@ export default {
   .todo-list li.editing .view {
     display: none;
   }
+  .view label {
+    display: inline;
+  }
   /* this is for title input in edit mode */
   .todo-list li.editing .edit {
     display: inline-block;
