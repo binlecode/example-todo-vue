@@ -56,6 +56,18 @@ import { v4 as uuidv4 } from "uuid";
 import Todo from "./Todo";
 import axios from 'axios';
 
+// register axios intercepter to cover general API error control
+axios.interceptors.response.use(
+  function(response) { return response; }, // happy path
+  function(error) { // unhappy path
+    // handle error
+    if (error.response) {
+      alert(error.response.data.message);
+      console.log(error);
+    }
+  }
+);
+
 // const baseUrl = 'http://localhost:3000/todos';
 // const baseUrl = 'http://dot:3000/todos';
 const baseUrl = 'http://134.122.19.243:3000/todos';
@@ -86,44 +98,96 @@ export default {
       todos: []
     };
   },
-  // load data from json-server
-  async created() {
-    try {
-      const res = await axios.get(baseUrl);
+  // load data from json-server during created vue lifecycle event callback
+  created() {
+    this.listTodos().then(res => {
       this.todos = res.data;
-    } catch (e) {
-      console.log(e);
-    }
+    });
   },
   methods: {
     setVisibility(vis) {
       this.visibility = vis;
     },
+    /** event handler to add todo */
     async addTodo() {
       if (this.newTodo) {
-        const res = await axios.post(baseUrl, {
-          id: uuidv4(),
-          title: this.newTodo,
-          completed: false
-        });
-        // add newly added todo to todos list
-        this.todos = [...this.todos, res.data];
-        // reset new todo
+        const res = await this.insertTodo({title: this.newTodo, completed: false});
+        // if save successful, add newly added todo to todos list
+        if (res) {
+          this.todos = [...this.todos, res.data];
+        }
+        // reset new todo string
         this.newTodo = "";
       }
     },
+    /** event handler to toggle todo completed property */
     async toggleTodoComplete(todoId) {
       console.log("toggle todo: " + todoId);
+      let todo = this.todos.find(td => td.id === todoId);
+      todo.completed = !todo.completed;
+      await this.patchTodo(todoId, {completed: todo.completed});
+    },
+    /** event handler to complete todo edit */
+    async doneEditTodo(todoIdAndTitle) {
+      console.log(`update todo ${todoIdAndTitle.id} with title: ${todoIdAndTitle.title}`);
+      let todo = this.todos.find(td => td.id === todoIdAndTitle.id);
+      todo.title = todoIdAndTitle.title;
+      await this.patchTodo(todo.id, {title: todo.title});
+      // reset editedTodo to exit edit mode
+      this.editedTodo = null;
+    },
+    /** event handler to enable todo edit mode */
+    editTodo(todo) {
+      // setting edited todo to target todo will enable edit mode for the todo li view
+      this.editedTodo = todo;
+    },
+    /** event handler to cancel todo edit */
+    cancelEditTodo(todoIdAndOrigTitle) {
+      // reset editedTodo to exit edit mode
+      this.editedTodo = null;
+    },
+
+    /** APIs that should move to a separate code module and imported */
+
+    /** API list todos */
+    async listTodos() {
       try {
-        let todo = this.todos.find(td => td.id === todoId);
-        todo.completed = !todo.completed;
-        await axios.patch(baseUrl + `/${todoId}`, {
-          completed: todo.completed
-        })
+        const res = await axios.get(baseUrl);
+        return res;
       } catch (e) {
         console.log(e);
       }
     },
+    /** API insert todo */
+    async insertTodo(data) {
+      try {
+        const res = await axios.post(baseUrl, {
+          id: uuidv4(),
+          title: data.title,
+          completed: data.completed
+        });
+        return res;
+      } catch (e) {
+        console.log(e);
+        return null;
+      }
+    },
+    /** API patchTodo */
+    async patchTodo(todoId, data = {}) {
+      let properties = {};
+      if (data.title) {
+        properties.title = data.title;
+      }
+      if (data.completed != null) {
+        properties.completed = data.completed;
+      }
+      try {
+        await axios.patch(baseUrl + `/${todoId}`, properties);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    /** API delete todo */
     async deleteTodo(todoId) {
       console.log("msg delete-todo: " + todoId);
       try {
@@ -145,31 +209,6 @@ export default {
     },
     clearAll() {
       // todo: implement me
-    },
-    editTodo(todo) {
-      // setting edited todo to target todo will enable edit mode for the todo li view
-      this.editedTodo = todo;
-    },
-    async editTodoTitle(todoId, todoTitle) {
-      console.log(`update todo ${todoId} with title: ${todoTitle}`);
-      try {
-        let todo = this.todos.find(td => td.id === todoId);
-        todo.title = todoTitle;
-        await axios.patch(baseUrl + `/${todoId}`, {
-          title: todo.title
-        })
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    async doneEditTodo(todoIdAndTitle) {
-      await this.editTodoTitle(todoIdAndTitle.id, todoIdAndTitle.title);
-      // reset editedTodo to exit edit mode
-      this.editedTodo = null;
-    },
-    cancelEditTodo(todoIdAndOrigTitle){
-      // reset editedTodo to exit edit mode
-      this.editedTodo = null;
     }
   }
 };
