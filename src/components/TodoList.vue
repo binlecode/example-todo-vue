@@ -9,10 +9,12 @@
               class="form-control"
               v-model="newTodo"
               name="title"
-              @keyup.enter="addTodo"
-              placeholder="Enter New Todo"
+              @keyup.enter="onTextBarInputEnter"
+              :placeholder="this.searchMode ? 'Search Todo' : 'Enter New Todo'"
             />
-            <a href="#" class="search_icon">
+            <a href="#" class="search_icon" :class="{ 'search-mode': this.searchMode }"
+               v-on:click="toggleSearchMode">
+              <input type="checkbox" style="display: none" v-model="searchMode" />
               <b-icon-search></b-icon-search>
             </a>
           </div>
@@ -31,7 +33,7 @@
             </ul>
           </div>
 
-          <div class="overflow-auto" v-if="total >   listOptions.limit">
+          <div class="overflow-auto" v-if="total > listOptions.limit">
             <b-pagination id="todo-pagination"
               v-model="listOptions.page"
               :total-rows="total"
@@ -109,6 +111,8 @@ export default {
       visibility: "all",
       // visibility: "active",
       newTodo: "",
+      // search mode of input text bar
+      searchMode: false,
       // editedTodo is used to trigger editing view of todo entry in the list
       editedTodo: null,
       todos: [],
@@ -123,7 +127,7 @@ export default {
   },
   // load data from json-server during `created` vue lifecycle event callback
   created() {
-    this.listTodos().then(resp => {
+    this.listTodos(this.listOptions).then(resp => {
       this.todos = resp.data;
       this.total = resp.headers['x-total-count'];
     });
@@ -135,7 +139,32 @@ export default {
     /** event hander for pagination change */
     onPgChange(evt) {
       console.log('changing page to ' + evt);
-      this.listTodos({page: evt}).then(resp => {
+      this.listTodos({
+        page: evt
+      }).then(resp => {
+        this.todos = resp.data;
+        this.total = resp.headers['x-total-count'];
+      });
+    },
+    /** event handler to toggle text bar search mode */
+    toggleSearchMode(evt) {
+      this.searchMode = !this.searchMode;
+    },
+    /** event hander to handle text input between search and new todo adding */
+    async onTextBarInputEnter(evt) {
+      console.log('catch text bar enter, search mode: ' + this.searchMode);
+      if (this.searchMode) {
+        await this.searchTodo();
+      } else {
+        await this.addTodo();
+      }
+    },
+    /** event handler to search todo */
+    async searchTodo() {
+      console.log('searching todo with q: ' + this.newTodo);
+      this.listTodos({
+        q: this.newTodo
+      }).then(resp => {
         this.todos = resp.data;
         this.total = resp.headers['x-total-count'];
       });
@@ -182,15 +211,37 @@ export default {
 
     /** APIs that should move to a separate code module and imported */
 
-    /** API list todos */
+    /**
+     * API list todos
+     * options: _page, _limit, _sort, _order, q (search string)
+     */
     async listTodos(options = {}) {
       try {
-        let qString = '&_page=' + (options.page ? options.page : 1);
-        qString += '&_limit=' + (options.limit ? options.limit : 6);
-        qString += '&_sort=' + (options.sort ? options.sort : 'createdAt');
-        qString += '&_order=' + (options.order ? options.order : 'desc');
-        console.log('query string: ' + qString);
-        return await axios.get(baseUrl + '/?' + qString);
+        const params = {};
+        if (options.q) {
+          params['q'] = options.q;
+        }
+        // always put a list cap for safety
+        params['_limit'] = options.limit ? options.limit : 1000; // todo: define const for 1000
+        // fill other params if exist
+        ['_page', '_sort', '_order'].forEach(k => {
+          if (options[k]) {
+            params[k] = options[k];
+          }
+        });
+        // if (options._page) {
+        //   params['_page'] = options.page;
+        // }
+        // if (options._sort) {
+        //   params['_sort'] = options.sort;
+        //   if (options._order) {
+        //     params['_order'] = options.order;
+        //   }
+        // }
+        for (let k in params) {
+          console.log(`${k} => ${params[k]}`);
+        };
+        return await axios.get(baseUrl, { params: params });
       } catch (e) {
         console.log(e);
       }
@@ -279,7 +330,8 @@ export default {
   right: 10px;
   top: 10px;
 }
-#todo-text-bar .search_icon:hover {
+/* #todo-text-bar .search_icon:hover, */
+#todo-text-bar .search_icon.search-mode {
   /* background: rgb(80, 80, 80); */
   background: #007bff;
   color: #fff;
