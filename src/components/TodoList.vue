@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 todo-form text-white">
-          <div class="from-group input-group-lg">
+          <div id="todo-text-bar" class="input-group-lg">
             <input
               type="text"
               class="form-control"
@@ -12,9 +12,12 @@
               @keyup.enter="addTodo"
               placeholder="Enter New Todo"
             />
+            <a href="#" class="search_icon">
+              <b-icon-search></b-icon-search>
+            </a>
           </div>
           <div>
-            <ul class="todo-list">
+            <ul id="todo-list" class="todo-list">
               <!-- <li class="list-group-item clearfix" v-for="todo in todos" :key="todo.id"> -->
               <li class="list-group-item" :class="{ editing: todo == editedTodo }"
                   v-for="todo in filteredTodos" v-bind:key="todo.id">
@@ -27,6 +30,19 @@
               </li>
             </ul>
           </div>
+
+          <div class="overflow-auto" v-if="total >   listOptions.limit">
+            <b-pagination id="todo-pagination"
+              v-model="listOptions.page"
+              :total-rows="total"
+              :per-page="listOptions.limit"
+              v-on:change="onPgChange"
+              aria-controls="todo-list"
+              align="fill"
+              style="background: transparent"
+            ></b-pagination>
+          </div>
+
           <footer class="footer">
             <!-- <span>footer </span> -->
             <ul class="filters">
@@ -68,9 +84,9 @@ axios.interceptors.response.use(
   }
 );
 
-// const baseUrl = 'http://localhost:3000/todos';
+const baseUrl = 'http://localhost:3000/todos';
 // const baseUrl = 'http://dot:3000/todos';
-const baseUrl = 'http://134.122.19.243:3000/todos';
+// const baseUrl = 'http://134.122.19.243:3000/todos';
 
 export default {
   name: "todoList",
@@ -95,18 +111,34 @@ export default {
       newTodo: "",
       // editedTodo is used to trigger editing view of todo entry in the list
       editedTodo: null,
-      todos: []
+      todos: [],
+      total: 0,
+      listOptions: {
+        page: 1,
+        limit: 6,
+        sort: 'createdAt',
+        order: 'desc'
+      }
     };
   },
-  // load data from json-server during created vue lifecycle event callback
+  // load data from json-server during `created` vue lifecycle event callback
   created() {
-    this.listTodos().then(res => {
-      this.todos = res.data;
+    this.listTodos().then(resp => {
+      this.todos = resp.data;
+      this.total = resp.headers['x-total-count'];
     });
   },
   methods: {
     setVisibility(vis) {
       this.visibility = vis;
+    },
+    /** event hander for pagination change */
+    onPgChange(evt) {
+      console.log('changing page to ' + evt);
+      this.listTodos({page: evt}).then(resp => {
+        this.todos = resp.data;
+        this.total = resp.headers['x-total-count'];
+      });
     },
     /** event handler to add todo */
     async addTodo() {
@@ -114,7 +146,8 @@ export default {
         const res = await this.insertTodo({title: this.newTodo, completed: false});
         // if save successful, add newly added todo to todos list
         if (res) {
-          this.todos = [...this.todos, res.data];
+          this.todos = [res.data, ...this.todos];
+          this.total += 1;
         }
         // reset new todo string
         this.newTodo = "";
@@ -150,10 +183,14 @@ export default {
     /** APIs that should move to a separate code module and imported */
 
     /** API list todos */
-    async listTodos() {
+    async listTodos(options = {}) {
       try {
-        const res = await axios.get(baseUrl);
-        return res;
+        let qString = '&_page=' + (options.page ? options.page : 1);
+        qString += '&_limit=' + (options.limit ? options.limit : 6);
+        qString += '&_sort=' + (options.sort ? options.sort : 'createdAt');
+        qString += '&_order=' + (options.order ? options.order : 'desc');
+        console.log('query string: ' + qString);
+        return await axios.get(baseUrl + '/?' + qString);
       } catch (e) {
         console.log(e);
       }
@@ -213,7 +250,6 @@ export default {
   }
 };
 </script>
-
 <style>
 #cover {
   background: #222 url("https://source.unsplash.com/800x600/?coffee,food")
@@ -225,6 +261,31 @@ export default {
   align-items: center;
   position: relative;
 }
+/** todo text bar embed both input and search modes */
+#todo-text-bar {
+  position: relative;
+}
+#todo-text-bar .search_icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: solid 1px #aaa;
+  color: #aaa;
+  text-decoration:none;
+  position: absolute; /* rely on parent's position being relative */
+  right: 10px;
+  top: 10px;
+}
+#todo-text-bar .search_icon:hover {
+  /* background: rgb(80, 80, 80); */
+  background: #007bff;
+  color: #fff;
+  border: 0;
+}
+
 .todo-form {
   /* font-size: 18px; */
   padding: 2em;
@@ -271,5 +332,12 @@ export default {
 .filters li a:hover,
 .filters li a.selected {
   border-color: #ffffff;
+}
+.page-item,
+.page-link,
+.page-item.active .page-link,
+.page-item.disabled .page-link {
+  background: transparent;
+  color: white;
 }
 </style>
