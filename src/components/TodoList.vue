@@ -70,25 +70,8 @@
 </template>
 
 <script type="text/javascript">
-import { v4 as uuidv4 } from "uuid";
 import Todo from "./Todo";
-import axios from 'axios';
-
-// register axios intercepter to cover general API error control
-axios.interceptors.response.use(
-  function(response) { return response; }, // happy path
-  function(error) { // unhappy path
-    // handle error
-    if (error.response) {
-      alert(error.response.data.message);
-      console.log(error);
-    }
-  }
-);
-
-const baseUrl = 'http://localhost:3000/todos';
-// const baseUrl = 'http://dot:3000/todos';
-// const baseUrl = 'http://134.122.19.243:3000/todos';
+import ApiService from '../ApiService';
 
 export default {
   name: "todoList",
@@ -127,24 +110,21 @@ export default {
   },
   // load data from json-server during `created` vue lifecycle event callback
   created() {
-    this.listTodos(this.listOptions).then(resp => {
-      this.todos = resp.data;
-      this.total = resp.headers['x-total-count'];
-    });
+    this.listTodos();
   },
   methods: {
     setVisibility(vis) {
       this.visibility = vis;
     },
-    /** event hander for pagination change */
-    onPgChange(evt) {
-      console.log('changing page to ' + evt);
-      this.listTodos({
-        page: evt
-      }).then(resp => {
-        this.todos = resp.data;
-        this.total = resp.headers['x-total-count'];
-      });
+    /** event handler to enable todo edit mode */
+    editTodo(todo) {
+      // setting edited todo to target todo will enable edit mode for the todo li view
+      this.editedTodo = todo;
+    },
+    /** event handler to cancel todo edit */
+    cancelEditTodo(todoIdAndOrigTitle) {
+      // reset editedTodo to exit edit mode
+      this.editedTodo = null;
     },
     /** event handler to toggle text bar search mode */
     toggleSearchMode(evt) {
@@ -154,17 +134,49 @@ export default {
     async onTextBarInputEnter(evt) {
       console.log('catch text bar enter, search mode: ' + this.searchMode);
       if (this.searchMode) {
-        await this.searchTodo();
+        await this.searchTodoNew();
       } else {
         await this.addTodo();
       }
     },
+    /** event hander for pagination change */
+    onPgChange(evt) {
+      console.log('changing page to ' + evt);
+      this.listOptions.page = evt;
+      if (this.searchMode) {
+        this.searchTodo();
+      } else {
+        this.listTodos();
+      }
+    },
+    /** event handler for a new search todo  */
+    async searchTodoNew(options = {}) {
+      // reset pagination values for a new search
+      this.listOptions.page = 1;
+      await this.searchTodo(options);
+    },
     /** event handler to search todo */
-    async searchTodo() {
+    async searchTodo(options = {}) {
       console.log('searching todo with q: ' + this.newTodo);
-      this.listTodos({
-        q: this.newTodo
-      }).then(resp => {
+      options['q'] = this.newTodo;
+      await this.listTodos(options);
+    },
+    /** event handler to list todos */
+    async listTodos(options = {}) {
+      let params = {
+        _limit: options.limit ? options.limit : this.listOptions.limit,
+        _page: options.page ? options.page : this.listOptions.page,
+        _sort: options.sort ? options.sort : this.listOptions.sort,
+        _order: options.order ? options.order : this.listOptions.order
+      };
+      if (options.q) {
+        params.q = options.q;
+      }
+      console.log("list todos with params:");
+      for (let k in params) {
+        console.log(`${k} => ${params[k]}`);
+      }
+      ApiService.listTodos(params).then(resp => {
         this.todos = resp.data;
         this.total = resp.headers['x-total-count'];
       });
@@ -172,7 +184,7 @@ export default {
     /** event handler to add todo */
     async addTodo() {
       if (this.newTodo) {
-        const res = await this.insertTodo({title: this.newTodo, completed: false});
+        const res = await ApiService.insertTodo({title: this.newTodo, completed: false});
         // if save successful, add newly added todo to todos list
         if (res) {
           this.todos = [res.data, ...this.todos];
@@ -187,110 +199,20 @@ export default {
       console.log("toggle todo: " + todoId);
       let todo = this.todos.find(td => td.id === todoId);
       todo.completed = !todo.completed;
-      await this.patchTodo(todoId, {completed: todo.completed});
+      await ApiService.patchTodo(todoId, {completed: todo.completed});
     },
     /** event handler to complete todo edit */
     async doneEditTodo(todoIdAndTitle) {
       console.log(`update todo ${todoIdAndTitle.id} with title: ${todoIdAndTitle.title}`);
       let todo = this.todos.find(td => td.id === todoIdAndTitle.id);
       todo.title = todoIdAndTitle.title;
-      await this.patchTodo(todo.id, {title: todo.title});
+      await ApiService.patchTodo(todo.id, {title: todo.title});
       // reset editedTodo to exit edit mode
       this.editedTodo = null;
     },
-    /** event handler to enable todo edit mode */
-    editTodo(todo) {
-      // setting edited todo to target todo will enable edit mode for the todo li view
-      this.editedTodo = todo;
-    },
-    /** event handler to cancel todo edit */
-    cancelEditTodo(todoIdAndOrigTitle) {
-      // reset editedTodo to exit edit mode
-      this.editedTodo = null;
-    },
-
-    /** APIs that should move to a separate code module and imported */
-
-    /**
-     * API list todos
-     * options: _page, _limit, _sort, _order, q (search string)
-     */
-    async listTodos(options = {}) {
-      try {
-        const params = {};
-        if (options.q) {
-          params['q'] = options.q;
-        }
-        // always put a list cap for safety
-        params['_limit'] = options.limit ? options.limit : 1000; // todo: define const for 1000
-        // fill other params if exist
-        ['_page', '_sort', '_order'].forEach(k => {
-          if (options[k]) {
-            params[k] = options[k];
-          }
-        });
-        // if (options._page) {
-        //   params['_page'] = options.page;
-        // }
-        // if (options._sort) {
-        //   params['_sort'] = options.sort;
-        //   if (options._order) {
-        //     params['_order'] = options.order;
-        //   }
-        // }
-        for (let k in params) {
-          console.log(`${k} => ${params[k]}`);
-        };
-        return await axios.get(baseUrl, { params: params });
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    /** API insert todo */
-    async insertTodo(data) {
-      try {
-        const res = await axios.post(baseUrl, {
-          id: uuidv4(),
-          title: data.title,
-          completed: data.completed
-        });
-        return res;
-      } catch (e) {
-        console.log(e);
-        return null;
-      }
-    },
-    /** API patchTodo */
-    async patchTodo(todoId, data = {}) {
-      let properties = {};
-      if (data.title) {
-        properties.title = data.title;
-      }
-      if (data.completed != null) {
-        properties.completed = data.completed;
-      }
-      try {
-        await axios.patch(baseUrl + `/${todoId}`, properties);
-      } catch (e) {
-        console.log(e);
-      }
-    },
-    /** API delete todo */
     async deleteTodo(todoId) {
-      console.log("msg delete-todo: " + todoId);
-      try {
-        const res1 = await axios.delete(baseUrl + `/${todoId}`);
-        console.log('delete successful: ' + res1.status);
-        if (res1.status > 200) {
-          console.log('Deletion error: ' + res1.status);
-          return;
-        }
-        // reload todos list from backend
-        const res = await axios.get(baseUrl);
-        this.todos = res.data;
-      } catch (e) {
-        console.log(e);
-      }
+      await ApiService.deleteTodo(todoId);
+      await this.listTodos();
     },
     clearCompleted() {
       // todo: implement me
@@ -302,94 +224,5 @@ export default {
 };
 </script>
 <style>
-#cover {
-  background: #222 url("https://source.unsplash.com/800x600/?coffee,food")
-    center center no-repeat;
-  background-size: cover;
-  height: 100%;
-  /* text-align: center; */
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-/** todo text bar embed both input and search modes */
-#todo-text-bar {
-  position: relative;
-}
-#todo-text-bar .search_icon {
-  height: 30px;
-  width: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: solid 1px #aaa;
-  color: #aaa;
-  text-decoration:none;
-  position: absolute; /* rely on parent's position being relative */
-  right: 10px;
-  top: 10px;
-}
-/* #todo-text-bar .search_icon:hover, */
-#todo-text-bar .search_icon.search-mode {
-  /* background: rgb(80, 80, 80); */
-  background: #007bff;
-  color: #fff;
-  border: 0;
-}
-
-.todo-form {
-  /* font-size: 18px; */
-  padding: 2em;
-  background-color: rgba(0, 0, 0, 0.4);
-  /* border-radius: 10px; */
-}
-.todo-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.todo-list .list-group-item {
-  padding: 0.75rem 0.75rem;
-  background: transparent;
-}
-.todo-list .list-group-item:hover {
-  border: 1px solid #fff;
-}
-.footer {
-  padding: 10px 15px;
-  height: 20px;
-  text-align: center;
-  border-top: 1px solid #e6e6e6;
-}
-.filters {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  position: absolute;
-  right: 0;
-  left: 0;
-}
-.filters li {
-  display: inline;
-}
-.filters li a {
-  color: inherit;
-  margin: 3px;
-  padding: 3px 7px;
-  text-decoration: none;
-  border: 1px solid transparent;
-  border-radius: 3px;
-}
-.filters li a:hover,
-.filters li a.selected {
-  border-color: #ffffff;
-}
-.page-item,
-.page-link,
-.page-item.active .page-link,
-.page-item.disabled .page-link {
-  background: transparent;
-  color: white;
-}
+@import '../assets/styles/todo-list.css';
 </style>
