@@ -4,7 +4,8 @@
       <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 todo-form text-white">
           <div id="todo-text-bar" class="input-group-lg">
-            <input
+            <!-- vue provides 'ref' tag to identify element in javascript -->
+            <input ref="inputTextBar"
               type="text"
               class="form-control"
               v-model="newTodo"
@@ -71,7 +72,7 @@
 
 <script type="text/javascript">
 import Todo from "./Todo";
-import ApiService from '../ApiService';
+import ApiService from '../services/ApiService';
 
 export default {
   name: "todoList",
@@ -129,14 +130,15 @@ export default {
     /** event handler to toggle text bar search mode */
     toggleSearchMode(evt) {
       this.searchMode = !this.searchMode;
+      this.$refs.inputTextBar.focus();
     },
     /** event hander to handle text input between search and new todo adding */
-    async onTextBarInputEnter(evt) {
+    onTextBarInputEnter(evt) {
       console.log('catch text bar enter, search mode: ' + this.searchMode);
       if (this.searchMode) {
-        await this.searchTodoNew();
+        this.searchTodoNew();
       } else {
-        await this.addTodo();
+        this.addTodo();
       }
     },
     /** event hander for pagination change */
@@ -176,10 +178,9 @@ export default {
       for (let k in params) {
         console.log(`${k} => ${params[k]}`);
       }
-      ApiService.listTodos(params).then(resp => {
-        this.todos = resp.data;
-        this.total = resp.headers['x-total-count'];
-      });
+      const resp = await ApiService.listTodos(params);
+      this.todos = resp.data;
+      this.total = resp.headers['x-total-count'];
     },
     /** event handler to add todo */
     async addTodo() {

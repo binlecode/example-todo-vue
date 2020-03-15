@@ -1,28 +1,551 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "Go workout",
+      "id": "87c03825-4088-4623-beee-26c932b8a882",
+      "completed": false,
+      "title": "Anim non occaecat pariatur est reprehenderit cupidatat eiusmod cillum irure nostrud cillum aliqua.",
+      "createdAt": "2015-08-05T03:03:05 +04:00",
+      "tags": [
+        "ipsum",
+        "et",
+        "veniam"
+      ]
+    },
+    {
+      "id": "277777b8-ea78-4e41-9a5e-3d1a09a522d1",
+      "completed": true,
+      "title": "Cupidatat cupidatat id eiusmod est elit.",
+      "createdAt": "2017-06-06T08:25:44 +04:00",
+      "tags": [
+        "consequat",
+        "quis",
+        "proident"
+      ]
+    },
+    {
+      "id": "09a18c09-cd0d-4915-b46c-55e8e307398d",
+      "completed": true,
+      "title": "Magna elit excepteur anim cillum velit laborum deserunt aliquip officia aute reprehenderit officia in laboris.",
+      "createdAt": "2016-05-03T08:03:57 +04:00",
+      "tags": [
+        "consectetur",
+        "adipisicing",
+        "consectetur"
+      ]
+    },
+    {
+      "id": "28c0d3dc-7b0d-4178-9d14-7301d288e421",
+      "completed": false,
+      "title": "Lorem minim dolore excepteur cupidatat veniam pariatur laborum et ad.",
+      "createdAt": "2014-12-16T11:22:56 +05:00",
+      "tags": [
+        "aute",
+        "commodo",
+        "dolore"
+      ]
+    },
+    {
+      "id": "d7bb9241-040a-4620-8782-c8b8d77f6f85",
+      "completed": true,
+      "title": "Aliquip tempor duis ea qui incididunt nostrud Lorem culpa.",
+      "createdAt": "2019-11-13T01:50:03 +05:00",
+      "tags": [
+        "velit",
+        "non",
+        "esse"
+      ]
+    },
+    {
+      "id": "dd46b0a5-4631-4533-b35e-1a2c64dcd43e",
+      "completed": true,
+      "title": "Fugiat sunt consequat ex elit duis deserunt commodo laborum do consectetur id.",
+      "createdAt": "2019-10-31T03:12:48 +04:00",
+      "tags": [
+        "quis",
+        "tempor",
+        "do"
+      ]
+    },
+    {
+      "id": "1b1d5212-97b0-4c11-834e-f45b899debf2",
+      "completed": true,
+      "title": "Dolor enim aliquip esse consectetur id occaecat minim.",
+      "createdAt": "2019-02-13T05:20:34 +05:00",
+      "tags": [
+        "id",
+        "nisi",
+        "adipisicing"
+      ]
+    },
+    {
+      "id": "49066202-05a2-4a6d-92e5-05a9c3f73dc4",
+      "completed": false,
+      "title": "Tempor aliquip exercitation anim adipisicing reprehenderit Lorem ipsum qui ipsum aliquip non cupidatat esse.",
+      "createdAt": "2019-02-04T01:37:41 +05:00",
+      "tags": [
+        "tempor",
+        "in",
+        "sit"
+      ]
+    },
+    {
+      "id": "e9e4e2a5-6652-442d-a877-a8aa6d507d0f",
+      "completed": true,
+      "title": "Minim commodo incididunt irure velit aute non enim laboris mollit incididunt exercitation quis.",
+      "createdAt": "2017-07-18T04:45:08 +04:00",
+      "tags": [
+        "cillum",
+        "consectetur",
+        "sint"
+      ]
+    },
+    {
+      "id": "77d205d1-cd8b-4d70-b2e4-97f57e6d7858",
+      "completed": true,
+      "title": "Nulla sint consequat ex nisi velit consequat ullamco anim reprehenderit.",
+      "createdAt": "2016-04-07T04:16:59 +04:00",
+      "tags": [
+        "adipisicing",
+        "id",
+        "ullamco"
+      ]
+    },
+    {
+      "id": "5e35c0f3-c07c-4948-9afb-fa703e044177",
+      "completed": false,
+      "title": "Anim in cupidatat aliqua velit sit ullamco.",
+      "createdAt": "2017-04-24T09:46:00 +04:00",
+      "tags": [
+        "ea",
+        "ut",
+        "id"
+      ]
+    },
+    {
+      "id": "412b5c18-931d-4ff4-8de1-5fda748de745",
+      "completed": false,
+      "title": "Aliquip commodo culpa dolor aliqua eu exercitation est do ipsum proident aliquip proident et.",
+      "createdAt": "2015-03-15T05:40:52 +04:00",
+      "tags": [
+        "voluptate",
+        "ullamco",
+        "exercitation"
+      ]
+    },
+    {
+      "id": "0693d34a-dec4-46e2-be08-8860f90a5e38",
+      "completed": true,
+      "title": "Ea irure ex ipsum anim tempor aliquip commodo ad ex ullamco ex elit ea laboris.",
+      "createdAt": "2017-07-07T11:53:55 +04:00",
+      "tags": [
+        "cillum",
+        "deserunt",
+        "ad"
+      ]
+    },
+    {
+      "id": "dbe20484-5b16-4073-943e-79ce90e818b2",
+      "completed": true,
+      "title": "Labore voluptate nulla cillum incididunt ullamco cillum dolore.",
+      "createdAt": "2016-06-17T05:54:21 +04:00",
+      "tags": [
+        "occaecat",
+        "occaecat",
+        "sint"
+      ]
+    },
+    {
+      "id": "111e8eb2-6de9-4a25-9b10-f5af622eedd4",
+      "completed": true,
+      "title": "Fugiat et dolor nostrud tempor incididunt excepteur cillum nulla deserunt.",
+      "createdAt": "2015-09-11T08:48:30 +04:00",
+      "tags": [
+        "duis",
+        "enim",
+        "id"
+      ]
+    },
+    {
+      "id": "b3e9a79b-5e31-470c-9f44-94cb9d15dcf8",
+      "completed": false,
+      "title": "Laborum nulla do fugiat sunt ex incididunt velit commodo adipisicing laborum laborum sunt occaecat non.",
+      "createdAt": "2018-03-04T12:09:08 +05:00",
+      "tags": [
+        "qui",
+        "ex",
+        "ex"
+      ]
+    },
+    {
+      "id": "ad7046b3-27cf-42a8-a1e5-b673d845a339",
+      "completed": false,
+      "title": "Aliquip reprehenderit quis officia et sint consectetur tempor cillum exercitation.",
+      "createdAt": "2014-04-12T10:01:25 +04:00",
+      "tags": [
+        "ex",
+        "laboris",
+        "minim"
+      ]
+    },
+    {
+      "id": "6fc0a600-0170-4a57-a905-683486100086",
+      "completed": false,
+      "title": "Velit quis excepteur cillum enim velit eu do qui aute esse eiusmod cupidatat culpa.",
+      "createdAt": "2015-02-19T04:58:00 +05:00",
+      "tags": [
+        "sint",
+        "velit",
+        "excepteur"
+      ]
+    },
+    {
+      "id": "1dc54dbe-e320-4cfe-b661-49e0810a438e",
+      "completed": false,
+      "title": "Reprehenderit Lorem culpa nisi sint velit cillum.",
+      "createdAt": "2018-05-12T01:38:19 +04:00",
+      "tags": [
+        "dolore",
+        "enim",
+        "ut"
+      ]
+    },
+    {
+      "id": "81f4de46-b44c-4d24-ba1f-1ec0aa3a030b",
+      "completed": true,
+      "title": "Tempor cupidatat veniam id cupidatat anim consequat elit esse ullamco culpa ullamco.",
+      "createdAt": "2017-01-18T01:48:28 +05:00",
+      "tags": [
+        "deserunt",
+        "veniam",
+        "sit"
+      ]
+    },
+    {
+      "id": "172725d2-1826-4107-b040-b2130999c1d7",
+      "completed": false,
+      "title": "Amet excepteur officia deserunt consectetur ea ipsum amet.",
+      "createdAt": "2015-12-12T04:15:05 +05:00",
+      "tags": [
+        "non",
+        "ad",
+        "mollit"
+      ]
+    },
+    {
+      "id": "93f0937f-b160-4bc1-961e-1ce8c5472ee3",
+      "completed": true,
+      "title": "Esse reprehenderit aliquip elit veniam magna.",
+      "createdAt": "2017-03-24T12:29:45 +04:00",
+      "tags": [
+        "deserunt",
+        "duis",
+        "proident"
+      ]
+    },
+    {
+      "id": "03e5f6c1-34c8-475c-add0-8d112a7fcead",
+      "completed": false,
+      "title": "Et tempor qui adipisicing ea sint reprehenderit tempor.",
+      "createdAt": "2016-02-02T11:07:39 +05:00",
+      "tags": [
+        "cupidatat",
+        "labore",
+        "nostrud"
+      ]
+    },
+    {
+      "id": "60f25efd-bc45-43a2-9f2e-ede9c4b70bf0",
+      "completed": true,
+      "title": "Nostrud proident magna non laboris.",
+      "createdAt": "2018-10-30T06:29:04 +04:00",
+      "tags": [
+        "velit",
+        "elit",
+        "proident"
+      ]
+    },
+    {
+      "id": "e6aa8ad2-7768-4307-9f78-652cb4fff3d3",
+      "completed": true,
+      "title": "Incididunt ipsum ut consequat labore veniam non dolore velit magna enim sunt officia adipisicing.",
+      "createdAt": "2016-02-19T12:41:01 +05:00",
+      "tags": [
+        "esse",
+        "qui",
+        "minim"
+      ]
+    },
+    {
+      "id": "3d307b0f-5aa4-4d71-9a4b-dad9d6e00e4f",
+      "completed": false,
+      "title": "Consequat reprehenderit in eu amet proident minim Lorem deserunt aute aliqua deserunt.",
+      "createdAt": "2016-04-12T06:59:02 +04:00",
+      "tags": [
+        "proident",
+        "ullamco",
+        "adipisicing"
+      ]
+    },
+    {
+      "id": "676cbe93-da00-47c1-81b3-89726e4fb36b",
+      "completed": false,
+      "title": "In non ex exercitation aliqua cupidatat dolore aliqua esse est sint irure labore culpa dolor.",
+      "createdAt": "2014-06-14T02:08:39 +04:00",
+      "tags": [
+        "aliquip",
+        "cupidatat",
+        "cupidatat"
+      ]
+    },
+    {
+      "id": "18d2a026-4831-43c3-b638-3a6114b161ec",
+      "completed": true,
+      "title": "Cillum pariatur nulla nostrud adipisicing elit voluptate aliqua tempor minim nisi.",
+      "createdAt": "2015-09-11T07:07:30 +04:00",
+      "tags": [
+        "consequat",
+        "veniam",
+        "consequat"
+      ]
+    },
+    {
+      "id": "f204cf0c-25f6-444c-afa4-108bc2887759",
+      "completed": false,
+      "title": "Id fugiat nostrud velit sint in qui voluptate elit anim et deserunt dolore elit incididunt.",
+      "createdAt": "2017-12-17T01:29:25 +05:00",
+      "tags": [
+        "ea",
+        "reprehenderit",
+        "reprehenderit"
+      ]
+    },
+    {
+      "id": "7682cd9b-d6f0-4317-9723-b94a132fe032",
+      "completed": true,
+      "title": "Voluptate enim in non nulla nisi cupidatat.",
+      "createdAt": "2016-08-04T12:55:08 +04:00",
+      "tags": [
+        "nisi",
+        "officia",
+        "consequat"
+      ]
+    },
+    {
+      "id": "680587f8-f455-4958-8a49-dd3887523fc8",
+      "completed": false,
+      "title": "Nisi exercitation do adipisicing voluptate dolore fugiat velit amet.",
+      "createdAt": "2018-11-03T06:37:40 +04:00",
+      "tags": [
+        "cupidatat",
+        "et",
+        "incididunt"
+      ]
+    },
+    {
+      "id": "ac2ecd2b-785d-461f-a829-bd549dde265c",
+      "completed": false,
+      "title": "Occaecat irure consequat esse voluptate eu fugiat.",
+      "createdAt": "2015-09-05T11:33:51 +04:00",
+      "tags": [
+        "magna",
+        "aute",
+        "ipsum"
+      ]
+    },
+    {
+      "id": "016f84b8-0dde-475e-8777-f68befc2691e",
+      "completed": true,
+      "title": "Enim qui do incididunt laborum exercitation mollit veniam do Lorem Lorem.",
+      "createdAt": "2015-08-13T03:24:04 +04:00",
+      "tags": [
+        "duis",
+        "ullamco",
+        "fugiat"
+      ]
+    },
+    {
+      "id": "97d956af-d405-4b7d-a479-0cf3cdb966bd",
+      "completed": false,
+      "title": "Sit sint qui velit enim reprehenderit do tempor non.",
+      "createdAt": "2015-06-02T09:01:12 +04:00",
+      "tags": [
+        "cillum",
+        "aliqua",
+        "eu"
+      ]
+    },
+    {
+      "id": "fb93677c-0f07-4b8a-b9f3-e3e2f298bb9d",
+      "completed": false,
+      "title": "Nisi fugiat cupidatat nisi duis ex qui reprehenderit labore esse ut non laborum nulla eu.",
+      "createdAt": "2016-12-03T09:17:43 +05:00",
+      "tags": [
+        "consequat",
+        "adipisicing",
+        "dolor"
+      ]
+    },
+    {
+      "id": "087baa5a-1335-4d85-b167-804d29b5dff5",
+      "completed": true,
+      "title": "Ad id cillum eiusmod occaecat eiusmod.",
+      "createdAt": "2018-10-18T07:47:56 +04:00",
+      "tags": [
+        "consectetur",
+        "adipisicing",
+        "velit"
+      ]
+    },
+    {
+      "id": "17a76c82-6e9a-45d2-a7eb-e0a602c51b77",
+      "completed": true,
+      "title": "Exercitation ex aliqua culpa excepteur anim qui cillum nostrud elit nulla cillum.",
+      "createdAt": "2019-05-17T09:02:19 +04:00",
+      "tags": [
+        "Lorem",
+        "esse",
+        "fugiat"
+      ]
+    },
+    {
+      "id": "83967520-d919-4037-a5e9-fb5aa4e4610d",
+      "completed": false,
+      "title": "Amet consectetur aute adipisicing do ullamco veniam quis do laboris quis id proident nulla.",
+      "createdAt": "2014-09-27T06:24:30 +04:00",
+      "tags": [
+        "ex",
+        "Lorem",
+        "enim"
+      ]
+    },
+    {
+      "id": "f468135e-b18e-4922-b3c4-632c016698b2",
+      "completed": false,
+      "title": "Pariatur tempor occaecat do id nostrud fugiat mollit ad duis reprehenderit mollit.",
+      "createdAt": "2017-07-30T06:34:17 +04:00",
+      "tags": [
+        "nulla",
+        "laborum",
+        "aliqua"
+      ]
+    },
+    {
+      "id": "959111d3-1e28-4c0c-97f1-1ea1c973dcee",
+      "completed": false,
+      "title": "Ut consectetur sit voluptate aliquip sit ex et eiusmod cupidatat tempor.",
+      "createdAt": "2019-05-15T03:10:47 +04:00",
+      "tags": [
+        "veniam",
+        "incididunt",
+        "voluptate"
+      ]
+    },
+    {
+      "id": "ef2e5987-a7ff-40e6-8313-d5023e6e4760",
+      "completed": false,
+      "title": "Ullamco aute deserunt in cupidatat deserunt ipsum voluptate veniam sunt ea consectetur dolore labore.",
+      "createdAt": "2018-11-28T10:11:55 +05:00",
+      "tags": [
+        "voluptate",
+        "cupidatat",
+        "cillum"
+      ]
+    },
+    {
+      "id": "327998f0-f578-4cb9-8a65-23621a1caef4",
+      "completed": false,
+      "title": "Eiusmod officia duis aute pariatur fugiat commodo minim ullamco quis sint pariatur exercitation officia.",
+      "createdAt": "2020-02-26T06:14:42 +05:00",
+      "tags": [
+        "sunt",
+        "magna",
+        "eiusmod"
+      ]
+    },
+    {
+      "id": "da1e61b5-7dc1-4c23-9ec5-3755321e66c4",
+      "completed": false,
+      "title": "Cillum non ad ex qui sit aute amet.",
+      "createdAt": "2018-09-12T10:51:49 +04:00",
+      "tags": [
+        "minim",
+        "labore",
+        "sint"
+      ]
+    },
+    {
+      "id": "cde6e8b2-7d33-4b52-ab4a-ed5061e5c783",
+      "title": "this is wip",
       "completed": false
     },
     {
-      "id": 4,
-      "title": "Clean up room",
-      "completed": true
-    },
-    {
-      "id": "0af05434-d57b-4dbd-801f-1a0ae0cf35e2",
-      "title": "add one to json-server",
+      "id": "627c2062-92a3-4c8f-b497-faadcfe54797",
+      "title": "this is another wip",
       "completed": false
     },
     {
-      "id": "4413eca6-f51d-481b-b819-13a8b3f0a85b",
-      "title": "brew a mug of coffee",
+      "id": "65dd6a4f-fe61-4a8d-b3e8-e44e7c676a67",
+      "title": "another one ",
       "completed": false
     },
     {
-      "id": "3f9089a1-3194-4cfc-b566-2e957350e325",
-      "title": "play tennis",
+      "id": "8d0b4c01-10e6-4a29-91a6-0f1296276be6",
+      "title": "add a new todo",
+      "completed": false
+    },
+    {
+      "id": "5b5ee909-8266-4bac-88d2-040504c7c021",
+      "title": "another todo wip for testing",
+      "completed": false
+    },
+    {
+      "id": "56616bec-02a4-4bdd-8f08-5fbb50e5ed5f",
+      "title": "wip",
+      "completed": false
+    },
+    {
+      "id": "2e2c175e-08cc-40be-ab46-25e472e3605a",
+      "title": "wip",
+      "completed": false
+    },
+    {
+      "id": "321932d5-bad7-4b75-8d75-09fd576d1a1e",
+      "title": "wip 2",
+      "completed": false
+    },
+    {
+      "id": "b8068cec-9563-425f-9450-f0b314f3727f",
+      "title": "wip seems working ",
+      "completed": false
+    },
+    {
+      "id": "f7a4afd0-fb2d-41b2-bf1d-c867197d9a3e",
+      "title": "can I try to make it work later?",
+      "completed": false
+    },
+    {
+      "id": "c3ec4d6b-7ba2-41dd-affa-d67f23de86cc",
+      "title": "try",
+      "completed": false
+    },
+    {
+      "id": "0b36b3eb-3df9-4f7a-b9ba-9c42364ac405",
+      "title": "wip",
+      "completed": false
+    },
+    {
+      "id": "925002d2-6c0d-422f-a292-77cf99997eb2",
+      "title": "wip",
+      "completed": false
+    },
+    {
+      "id": "01b850fd-6c68-4ea4-bf33-a3418ab1639e",
+      "title": "have a new one that resets the list",
+      "completed": false
+    },
+    {
+      "id": "6093638c-17d0-4c04-b423-691dfa42b20b",
+      "title": "check if new todo add will reset todo list",
       "completed": false
     }
   ]
