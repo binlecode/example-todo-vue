@@ -1,9 +1,20 @@
 <template id="todo-item">
   <div class="">
     <div class="view">
-      <input type="checkbox" v-model="todo.completed"
-               v-on:click="$emit('toggle-todo-complete', todo.id)" />
-      <label :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</label>
+      <!-- have to add id to the checkbox and attribute for="" with checkbox id to the label to make checkbox work -->
+      <label :for="'cb-' + todo.id" class="checkbox-label">
+        <input :id="'cb-' + todo.id" type="checkbox" v-model="todo.completed"
+                v-on:click="$emit('toggle-todo-complete', todo.id)" />
+        <span class="checkmark"></span>
+      </label>
+      <span :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</span>
+      <span v-if="todo.tags">
+        |
+        <span v-for="tag in todo.tags" :key="tag">
+          <a href="#"><span class="badge">{{ tag }}</span></a>
+          |
+        </span>
+      </span>
       <span class="pull-right">
         <button class="btn btn-xs btn-outline-danger btn-rm-todo"
                 @click="$emit('delete-todo', todo.id)">
@@ -92,37 +103,5 @@ export default {
 </script>
 
 <style>
-  .completed {
-    text-decoration: line-through;
-  }
-  .pull-right {
-    float: right;
-  }
-  .btn-rm-todo {
-    padding: 0 0.5em;
-    font-size: 0.75rem;
-  }
-  .todo-list li.editing .view {
-    display: none;
-  }
-  .view label {
-    display: inline;
-  }
-  /* this is for title input in edit mode */
-  .todo-list li.editing .edit {
-    display: inline-block;
-    width: 100%;
-    /*padding: 12px 16px;*/
-    /*margin: 0 0 0 43px;*/
-  }
-  .todo-list li input[type="text"] {
-    border-radius: .3rem;
-    outline: none;
-    padding: .25rem .25rem;
-    box-shadow:none !important;
-  }
-  /* this is for title input in non-edit mode */
-  .todo-list li .edit {
-    display: none;
-  }
+@import '../assets/styles/todo.css';
 </style>

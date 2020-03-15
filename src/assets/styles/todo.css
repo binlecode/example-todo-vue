@@ -1,0 +1,92 @@
+.completed {
+  text-decoration: line-through;
+}
+.pull-right {
+  float: right;
+}
+.btn-rm-todo {
+  padding: 0 0.5em;
+  font-size: 0.75rem;
+}
+.todo-list li.editing .view {
+  display: none;
+}
+/* custom checkbox label */
+.checkbox-label {
+  display: block;
+  position: relative;
+  margin: auto;
+  /* cursor: pointer; */
+  height: 20px;
+  width: 20px;
+  clear: both;
+  padding-left: 30px; /* make space for custom checkbox */
+}
+/* Hide the browser's default checkbox */
+.checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0; /* should only use opacity to hide and support all events */
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* Create a custom checkbox checkmark */
+.checkbox-label .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border-radius: 0.2rem;
+  border: 1px solid white;
+  cursor: pointer;
+}
+/* prepare checkmark indicator, hide it when checkbox is not checked */
+.checkbox-label .checkmark::after {
+  position: absolute;
+  content: "";
+  display: none;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkbox-label input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #333;
+  border: 0;
+}
+/* style the checkmark indicator */
+.checkbox-label input[type="checkbox"]:checked ~ .checkmark::after {
+  display: block;
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* text display in view mode */
+.view label {
+  display: inline;
+}
+.view span a {
+  color: white;
+}
+/* this is for title input in edit mode */
+.todo-list li.editing .edit {
+  display: inline-block;
+  width: 100%;
+  /*padding: 12px 16px;*/
+  /*margin: 0 0 0 43px;*/
+}
+.todo-list li input[type="text"] {
+  border-radius: 0.3rem;
+  outline: none;
+  padding: 0.25rem 0.25rem;
+  box-shadow: none !important;
+}
+/* this is for title input in non-edit mode */
+.todo-list li .edit {
+  display: none;
+}
