@@ -1,92 +1,88 @@
 /** css for TodoList component */
 #cover {
-    background: #222 url("https://source.unsplash.com/800x600/?coffee,office")
-      center center no-repeat;
-    background-size: cover;
-    height: 100%;
-    /* text-align: center; */
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  /** todo text bar embed both input and search modes */
-  #todo-text-bar {
-    position: relative;
-  }
-  #todo-text-bar .search_icon {
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    border: solid 1px #aaa;
-    color: #aaa;
-    text-decoration:none;
-    position: absolute; /* rely on parent's position being relative */
-    right: 10px;
-    top: 10px;
-  }
-  /* #todo-text-bar .search_icon:hover, */
-  #todo-text-bar .search_icon.search-mode {
-    /* background: rgb(80, 80, 80); */
-    background: #007bff;
-    color: #fff;
-    border: 0;
-  }
-  
-  .todo-form {
-    /* font-size: 18px; */
-    padding: 2em;
-    background-color: rgba(0, 0, 0, 0.4);
-    /* border-radius: 10px; */
-  }
-  .todo-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .todo-list .list-group-item {
-    padding: 0.75rem 0.75rem;
-    background: transparent;
-  }
-  .todo-list .list-group-item:hover {
-    border: 1px solid #fff;
-  }
-  .footer {
-    padding: 10px 15px;
-    height: 20px;
-    text-align: center;
-    border-top: 1px solid #e6e6e6;
-  }
-  .filters {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    position: absolute;
-    right: 0;
-    left: 0;
-  }
-  .filters li {
-    display: inline;
-  }
-  .filters li a {
-    color: inherit;
-    margin: 3px;
-    padding: 3px 7px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 3px;
-  }
-  .filters li a:hover,
-  .filters li a.selected {
-    border-color: #ffffff;
-  }
-  .page-item,
-  .page-link,
-  .page-item.active .page-link,
-  .page-item.disabled .page-link {
-    background: transparent;
-    color: white;
-  }
-  
+  background: #222 url("https://source.unsplash.com/800x600/?coffee,office")
+    center center no-repeat;
+  background-size: cover;
+  height: 100%;
+  /* text-align: center; */
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+/** todo text bar embed both input and search modes */
+#todo-text-bar {
+  position: relative;
+}
+#todo-text-bar .search-icon {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: solid 1px #aaa;
+  color: #aaa;
+  text-decoration: none;
+  position: absolute; /* rely on parent's position being relative */
+  right: 10px;
+  top: 10px;
+}
+#todo-text-bar .search-icon.search-mode {
+  background: #333;
+  color: #fff;
+  border: 0;
+}
+
+.todo-form {
+  /* font-size: 18px; */
+  padding: 2em;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.todo-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.todo-list .list-group-item {
+  padding: 0.75rem 0.75rem;
+  background: transparent;
+}
+.todo-list .list-group-item:hover {
+  border: 1px solid #fff;
+}
+.footer {
+  padding: 10px 15px;
+  height: 20px;
+  text-align: center;
+  border-top: 1px solid #e6e6e6;
+}
+.filters {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  right: 0;
+  left: 0;
+}
+.filters li {
+  display: inline;
+}
+.filters li a {
+  color: inherit;
+  margin: 3px;
+  padding: 3px 7px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.filters li a:hover,
+.filters li a.selected {
+  border-color: #ffffff;
+}
+.page-item,
+.page-link,
+.page-item.active .page-link,
+.page-item.disabled .page-link {
+  background: transparent;
+  color: white;
+}
