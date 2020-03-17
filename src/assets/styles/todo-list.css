@@ -86,3 +86,9 @@
   background: transparent;
   color: white;
 }
+.page-item.active .page-link {
+  border-color: #fff;
+  background-color: #333;
+  font-weight: bold;
+}
+
