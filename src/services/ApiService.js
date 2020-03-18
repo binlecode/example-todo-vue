@@ -7,16 +7,19 @@ const baseUrl = "http://localhost:3000/todos";
 
 // register axios intercepter to cover general API error control
 axios.interceptors.response.use(
-  function(response) {
+  function(response) { // happy path
     return response;
   }, // happy path
-  function(error) {
-    // unhappy path
-    // handle error
+  function(error) { // unhappy path, handle error
+    console.log('API error: ' + error);
     if (error.response) {
-      alert(error.response.data.message);
-      console.log(error);
+      console.log('API error response: ' + error.response);
+      if (error.response.status) {
+        console.log('API error status: ' + error.response.status);
+      }
     }
+    alert('API error: ' + error);
+    // return Promise.reject(error); // kinda rethrow the error to caller...
   }
 );
 
