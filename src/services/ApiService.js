@@ -1,24 +1,49 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
+//
+import "izitoast/dist/css/iziToast.min.css";
+import izitoast from "izitoast";
 
 const baseUrl = "http://localhost:3000/todos";
 // const baseUrl = 'http://dot:3000/todos';
 // const baseUrl = 'http://134.122.19.243:3000/todos';
 
+const toast = {
+  error: (message, title = 'Error') => {
+    return izitoast.error({
+      title: title,
+      message: message,
+      position: 'topCenter'
+    });
+  },
+  success: (message, title = 'Success') => {
+    return izitoast.success({
+      title: title,
+      message: message,
+      position: 'topCenter'
+    });
+  }
+}
+
 // register axios intercepter to cover general API error control
 axios.interceptors.response.use(
-  function(response) { // happy path
+  function(response) {
+    // happy path
     return response;
   }, // happy path
-  function(error) { // unhappy path, handle error
-    console.log('API error: ' + error);
+  function(error) {
+    // unhappy path, handle error
+    console.log("API error: " + error);
     if (error.response) {
-      console.log('API error response: ' + error.response);
+      console.log("API error response: " + error.response);
       if (error.response.status) {
-        console.log('API error status: ' + error.response.status);
+        console.log("API error status: " + error.response.status);
       }
     }
-    alert('API error: ' + error);
+    // alert("API error: " + error);
+    // replace ugly alert with izitoast
+    toast.error('API Error: ' + error);
+
     // return Promise.reject(error); // kinda rethrow the error to caller...
   }
 );
