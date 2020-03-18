@@ -7,14 +7,16 @@
                 v-on:click="$emit('toggle-todo-complete', todo.id)" />
         <span class="checkmark"></span>
       </label>
-      <span :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</span>
-      <span v-if="todo.tags">
-        |
-        <span v-for="tag in todo.tags" :key="tag">
-          <a href="#"><span class="badge">{{ tag }}</span></a>
+      <p class="todo-details">
+        <span :class="{ completed: todo.completed }" @dblclick="editTodo">{{ todo.title }}</span>
+        <span v-if="todo.tags">
           |
+          <span v-for="tag in todo.tags" :key="tag">
+            <a href="#"><span class="badge">{{ tag }}</span></a>
+            |
+          </span>
         </span>
-      </span>
+      </p>
       <span class="pull-right">
         <button class="btn btn-xs btn-outline-danger btn-rm-todo"
                 @click="$emit('delete-todo', todo.id)">
@@ -23,7 +25,6 @@
       </span>
     </div>
     <!-- this input will hide in li non-editing mode -->
-    <!-- <input class="edit" type="text" v-model.trim="inputTodo.title" v-todo-focus="origTodoTitle != null" -->
     <input class="edit" type="text" v-model.trim="inputTodoTitle" v-todo-focus="origTodoTitle != null"
       @keyup.enter="doneEditTodo"
       @keyup.esc="cancelEditTodo" />

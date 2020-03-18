@@ -1,8 +1,26 @@
 .completed {
   text-decoration: line-through;
 }
+
+/* text display in view mode */
+.view {
+  position: relative;
+}
+.view label {
+  display: inline;
+}
+.view span a {
+  color: white;
+}
+
+p.todo-details {
+  display: inline;
+}
 .pull-right {
   float: right;
+  /* position: absolute; */
+  /* top: 0; */
+  /* right: 0; */
 }
 .btn-rm-todo {
   padding: 0 0.5em;
@@ -11,6 +29,25 @@
 .todo-list li.editing .view {
   display: none;
 }
+
+/* this is for title input in edit mode */
+.todo-list li.editing .edit {
+  display: inline-block;
+  width: 100%;
+  /*padding: 12px 16px;*/
+  /*margin: 0 0 0 43px;*/
+}
+.todo-list li input[type="text"] {
+  border-radius: 0.3rem;
+  outline: none;
+  padding: 0.25rem 0.25rem;
+  box-shadow: none !important;
+}
+/* this is for title input in non-edit mode */
+.todo-list li .edit {
+  display: none;
+}
+
 /* custom checkbox label */
 .checkbox-label {
   display: block;
@@ -68,28 +105,4 @@
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
-}
-/* text display in view mode */
-.view label {
-  display: inline;
-}
-.view span a {
-  color: white;
-}
-/* this is for title input in edit mode */
-.todo-list li.editing .edit {
-  display: inline-block;
-  width: 100%;
-  /*padding: 12px 16px;*/
-  /*margin: 0 0 0 43px;*/
-}
-.todo-list li input[type="text"] {
-  border-radius: 0.3rem;
-  outline: none;
-  padding: 0.25rem 0.25rem;
-  box-shadow: none !important;
-}
-/* this is for title input in non-edit mode */
-.todo-list li .edit {
-  display: none;
 }
