@@ -11,20 +11,53 @@ Environment:
 * npm: `v6.13`
 * @vue/cli: `v4.2.3`
 
-Vue CLI is awesome to kick-start Vue projects, but comes with little in the way of styling.
+## Bootstrap
 
+Use BootstrapVue integrate bootstrap 4 and icons.
 ```bash
-npm install bootstrap jquery popper.js
+npm install bootstrap-vue
 ```
 
 And import it into the main script by adding these lines to the top of 
 `<project-root>/src/main.js`:
 ```javascript
-import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+// need to explicitely import BootstrapVue and Icons
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 ```
 
-The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`.
+The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`. There is a little background change button on the footer to switch different background image categories.
+
+## json-server as backend REST data endpoints
+
+Json server is used and loading `db.json` as mock backend REST data service.
+The seeding `db.json` file is created using [json-generator](https://www.json-generator.com/) online service.
+
+Switch code to `json-server` branch, then:
+
+```bash
+npm install json-server --dev-save
+# start it
+node_modules/.bin/json-server --watch db.json
+```
+
+This generates a `todos` resource endpoints: `http://localhost:3000/todos`.
+Json-server provides both standard CRUDs as well as pagination, sorting, and text search. 
+It is nicely explained in this [post](https://blog.eleven-labs.com/en/json-server/) and its github [documentation](https://github.com/typicode/json-server).
+
+
+## Axios api 
+
+Axios library is used to as API client to call json-server endpoints.
+
+```bash
+npm install axios
+```
+
+The axios specific API code is externalized from vue components to separate [`ApiService.js`](./src/services/ApiService.js) file in `services` folder.
+
+## Deployment
 
 The production deployment is configured to deploy to github web page.
 To avoid gh-pages blank page (not loading js) issue, use `master` branch `docs` folder as deployed content root. 
@@ -52,16 +85,6 @@ Now the github demo webpage is at [binlecode.github.io/example-todo-vue/index.ht
 
 Note if in github gh-pages setting if choose `master` branch without `docs` subfolder, the web url would then be [binlecode.github.io/example-todo-vue/docs/index.html](https://binlecode.github.io/example-todo-vue/docs/index.html).
 
-## json-server as backend REST data endpoints
-
-Switch to json-server branch, then:
-
-```bash
-npm install -g json-server
-npm install axios
-json-server --watch db.json
-npm run dev
-```
 
 
 ## todo
