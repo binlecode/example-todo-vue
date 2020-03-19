@@ -26,13 +26,8 @@ const toast = {
 }
 
 // register axios intercepter to cover general API error control
-axios.interceptors.response.use(
-  function(response) {
-    // happy path
-    return response;
-  }, // happy path
-  function(error) {
-    // unhappy path, handle error
+axios.interceptors.response.use(undefined,
+  function(error) { // unhappy path, handle error
     console.log("API error: " + error);
     if (error.response) {
       console.log("API error response: " + error.response);
@@ -44,7 +39,7 @@ axios.interceptors.response.use(
     // replace ugly alert with izitoast
     toast.error('API Error: ' + error);
 
-    // return Promise.reject(error); // kinda rethrow the error to caller...
+    return Promise.reject(error);
   }
 );
 
