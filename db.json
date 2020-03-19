@@ -46,8 +46,8 @@
     },
     {
       "id": "d7bb9241-040a-4620-8782-c8b8d77f6f85",
-      "completed": true,
-      "title": "Aliquip tempor duis ea qui incididunt nostrud Lorem culpa.",
+      "completed": false,
+      "title": "Aliquip tempor duis ea qui incididunt nostrud changed.",
       "createdAt": "2019-11-13T01:50:03 +05:00",
       "tags": [
         "velit",
@@ -58,7 +58,7 @@
     {
       "id": "dd46b0a5-4631-4533-b35e-1a2c64dcd43e",
       "completed": true,
-      "title": "Fugiat sunt consequat ex elit duis deserunt commodo laborum do consectetur id.",
+      "title": "Fugiat sunt consequat ex elit duis deserunt commodo laborum and more ...",
       "createdAt": "2019-10-31T03:12:48 +04:00",
       "tags": [
         "quis",
@@ -68,7 +68,7 @@
     },
     {
       "id": "1b1d5212-97b0-4c11-834e-f45b899debf2",
-      "completed": true,
+      "completed": false,
       "title": "Dolor enim aliquip esse consectetur id occaecat minim.",
       "createdAt": "2019-02-13T05:20:34 +05:00",
       "tags": [
@@ -398,7 +398,7 @@
     },
     {
       "id": "17a76c82-6e9a-45d2-a7eb-e0a602c51b77",
-      "completed": true,
+      "completed": false,
       "title": "Exercitation ex aliqua culpa excepteur anim qui cillum nostrud elit nulla cillum.",
       "createdAt": "2019-05-17T09:02:19 +04:00",
       "tags": [
@@ -453,7 +453,7 @@
     },
     {
       "id": "327998f0-f578-4cb9-8a65-23621a1caef4",
-      "completed": false,
+      "completed": true,
       "title": "Eiusmod officia duis aute pariatur fugiat commodo minim ullamco quis sint pariatur exercitation officia.",
       "createdAt": "2020-02-26T06:14:42 +05:00",
       "tags": [
@@ -472,11 +472,6 @@
         "labore",
         "sint"
       ]
-    },
-    {
-      "id": "cde6e8b2-7d33-4b52-ab4a-ed5061e5c783",
-      "title": "this is wip",
-      "completed": false
     },
     {
       "id": "627c2062-92a3-4c8f-b497-faadcfe54797",
@@ -499,28 +494,13 @@
       "completed": false
     },
     {
-      "id": "56616bec-02a4-4bdd-8f08-5fbb50e5ed5f",
-      "title": "wip",
-      "completed": false
-    },
-    {
-      "id": "2e2c175e-08cc-40be-ab46-25e472e3605a",
-      "title": "wip",
-      "completed": false
-    },
-    {
-      "id": "321932d5-bad7-4b75-8d75-09fd576d1a1e",
-      "title": "wip 2",
-      "completed": false
-    },
-    {
       "id": "b8068cec-9563-425f-9450-f0b314f3727f",
       "title": "wip seems working ",
       "completed": false
     },
     {
       "id": "f7a4afd0-fb2d-41b2-bf1d-c867197d9a3e",
-      "title": "can I try to make it work later?",
+      "title": "can I try to make it work later? and make a multi-line todo string and see how it looks",
       "completed": false
     },
     {
@@ -534,18 +514,18 @@
       "completed": false
     },
     {
-      "id": "925002d2-6c0d-422f-a292-77cf99997eb2",
-      "title": "wip",
-      "completed": false
-    },
-    {
       "id": "01b850fd-6c68-4ea4-bf33-a3418ab1639e",
-      "title": "have a new one that resets the list",
+      "title": "have a new control that resets the list",
       "completed": false
     },
     {
       "id": "6093638c-17d0-4c04-b423-691dfa42b20b",
       "title": "check if new todo add will reset todo list",
+      "completed": true
+    },
+    {
+      "id": "796522f5-42c9-4178-86f5-cf21e0f069bd",
+      "title": "redo the checkbox!",
       "completed": false
     }
   ]
