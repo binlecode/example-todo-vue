@@ -70,7 +70,7 @@ p.todo-details {
 /* Create a custom checkbox checkmark */
 .checkbox-label .checkmark {
   position: absolute;
-  top: 0.2rem;
+  top: 0.15rem;
   left: 0;
   height: 20px;
   width: 20px;

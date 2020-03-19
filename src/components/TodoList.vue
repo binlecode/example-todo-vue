@@ -1,5 +1,5 @@
 <template>
-  <section id="cover">
+  <section id="cover" :style='{ background: "#222 url(" + imgUrl +") " }'>
     <div class="container">
       <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 todo-form text-white">
@@ -13,7 +13,7 @@
               @keyup.enter="onTextBarInputEnter"
               :placeholder="this.searchMode ? 'Search Todo' : 'Enter New Todo'"
             />
-            <a href="#" class="search_icon" :class="{ 'search-mode': this.searchMode }"
+            <a href="#" class="search-icon" :class="{ 'search-mode': this.searchMode }"
                v-on:click="toggleSearchMode">
               <input type="checkbox" style="display: none" v-model="searchMode" />
               <b-icon-search></b-icon-search>
@@ -62,10 +62,16 @@
                 <a href="#" :class="{selected: visibility == 'completed'}" v-on:click="setVisibility('completed')">Completed</a>
               </li>
             </ul>
-            <!-- <span class="pull-right">place-holder</span> -->
           </footer>
         </div>
       </div>
+      <!-- <div class="row">
+        <div>
+          <button class="btn btn-info" @click="changeBgPic">
+            office
+          </button>
+        </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -92,6 +98,7 @@ export default {
   props: {},
   data() {
     return {
+      imgUrl: "https://source.unsplash.com/800x600/?coffee",
       visibility: "all",
       // visibility: "active",
       newTodo: "",
@@ -114,6 +121,11 @@ export default {
     this.listTodos();
   },
   methods: {
+    changeBgPic(evt) {
+      console.log('change bg pic');
+      this.imgUrl = "https://source.unsplash.com/800x600/?office," + Math.random().toString().substring(2, 4);
+    },
+    /** */
     setVisibility(vis) {
       this.visibility = vis;
     },
