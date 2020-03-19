@@ -79,6 +79,11 @@
 .filters li a.selected {
   border-color: #ffffff;
 }
+.change-bg {
+  float: right;
+  margin-right: 15px;
+}
+
 .page-item,
 .page-link,
 .page-item.active .page-link,

@@ -61,6 +61,11 @@
                 <!-- <a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a> -->
                 <a href="#" :class="{selected: visibility == 'completed'}" v-on:click="setVisibility('completed')">Completed</a>
               </li>
+              <!-- little button for background img change -->
+              <li class="change-bg">
+                <!-- <a href="#/completed" :class="{selected: visibility == 'completed'}">Completed</a> -->
+                <a href="#" class="" v-on:click="changeBgPic">bg</a>
+              </li>
             </ul>
           </footer>
         </div>
@@ -99,6 +104,14 @@ export default {
   data() {
     return {
       imgUrl: "https://source.unsplash.com/800x600/?coffee",
+      imgCategories: [
+        'office',
+        'nature',
+        'travel',
+        'food',
+        'space',
+        'tennis'
+      ],
       visibility: "all",
       // visibility: "active",
       newTodo: "",
@@ -122,8 +135,10 @@ export default {
   },
   methods: {
     changeBgPic(evt) {
-      console.log('change bg pic');
-      this.imgUrl = "https://source.unsplash.com/800x600/?office," + Math.random().toString().substring(2, 4);
+      // this.imgUrl = "https://source.unsplash.com/800x600/?office," + Math.random().toString().substring(2, 4);
+      const catIdx = Math.floor(Math.random() * this.imgCategories.length);
+      console.log('change bg pic to category: ' + this.imgCategories[catIdx]);
+      this.imgUrl = "https://source.unsplash.com/800x600/?" + this.imgCategories[catIdx];
     },
     /** */
     setVisibility(vis) {
@@ -178,10 +193,10 @@ export default {
     /** event handler to list todos */
     async listTodos(options = {}) {
       let params = {
-        _limit: options.limit ? options.limit : this.listOptions.limit,
-        _page: options.page ? options.page : this.listOptions.page,
-        _sort: options.sort ? options.sort : this.listOptions.sort,
-        _order: options.order ? options.order : this.listOptions.order
+        _limit: options.limit || this.listOptions.limit,
+        _page: options.page || this.listOptions.page,
+        _sort: options.sort || this.listOptions.sort,
+        _order: options.order || this.listOptions.order
       };
       if (options.q) {
         params.q = options.q;
