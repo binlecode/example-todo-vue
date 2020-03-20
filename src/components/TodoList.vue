@@ -83,7 +83,8 @@
 
 <script type="text/javascript">
 import Todo from "./Todo";
-import ApiService from '../services/ApiService';
+// import ApiService from '../services/ApiService';
+import ApiService from '../services/LocalStorageApiService';
 
 export default {
   name: "todoList",
@@ -207,6 +208,7 @@ export default {
       }
       const resp = await ApiService.listTodos(params);
       this.todos = resp.data;
+      // todo: this is bad... should decouple from underlying API impl (Axios)
       this.total = resp.headers['x-total-count'];
     },
     /** event handler to add todo */
