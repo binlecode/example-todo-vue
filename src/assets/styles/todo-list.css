@@ -1,8 +1,9 @@
 /** css for TodoList component */
 #cover {
   background: #222 url("https://source.unsplash.com/800x600/?coffee,office")
-    center center no-repeat;
-  background-size: cover;
+    center center;
+  background-repeat: repeat;
+  /* background-size: cover; */
   height: 100%;
   /* text-align: center; */
   display: flex;
@@ -82,6 +83,13 @@
 .change-bg {
   float: right;
   margin-right: 15px;
+}
+.change-bg a {
+  font-size: .5rem;
+}
+.change-bg a:hover {
+  background-color: #fff;
+  color: #222;
 }
 
 .page-item,

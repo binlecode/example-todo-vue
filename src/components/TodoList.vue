@@ -1,5 +1,5 @@
 <template>
-  <section id="cover" :style='{ background: "#222 url(" + imgUrl +") " }'>
+  <section id="cover" :style='{ "background-image": "url(" + imgUrl +") " }'>
     <div class="container">
       <div class="row">
         <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto form p-4 todo-form text-white">
@@ -103,7 +103,7 @@ export default {
   props: {},
   data() {
     return {
-      imgUrl: "https://source.unsplash.com/800x600/?coffee",
+      imgUrl: "https://source.unsplash.com/1024x768/?coffee",
       imgCategories: [
         'office',
         'nature',
@@ -138,7 +138,7 @@ export default {
       // this.imgUrl = "https://source.unsplash.com/800x600/?office," + Math.random().toString().substring(2, 4);
       const catIdx = Math.floor(Math.random() * this.imgCategories.length);
       console.log('change bg pic to category: ' + this.imgCategories[catIdx]);
-      this.imgUrl = "https://source.unsplash.com/800x600/?" + this.imgCategories[catIdx];
+      this.imgUrl = "https://source.unsplash.com/1024x768/?" + this.imgCategories[catIdx];
     },
     /** */
     setVisibility(vis) {
