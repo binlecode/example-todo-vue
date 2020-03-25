@@ -40,6 +40,10 @@ Switch code to `json-server` branch, then:
 npm install json-server --dev-save
 # start it
 node_modules/.bin/json-server --watch db.json
+# to run json-server in background
+node_modules/.bin/json-server -p 3000 db.json >> ./json-server.log 2>&1 </dev/null &
+# then tail the log
+tail -f json-server.log
 ```
 
 This generates a `todos` resource endpoints: `http://localhost:3000/todos`.
