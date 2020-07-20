@@ -62,10 +62,27 @@ export default {
   }
 };
 
+let getTodos = function (options = {}) {
+  // seed todo list if asked or if list is null or empty
+  if (options.reset) {
+    setTodos(seedTodos);
+  } else {
+    let todos = JSON.parse(localStorage.getItem('todos'));
+    if (todos == null) { // || todos.length === 0) {
+      setTodos(seedTodos);
+    }
+  }
+  return JSON.parse(localStorage.getItem('todos'));
+};
+
+let setTodos = function(todos) {
+  localStorage.setItem('todos', JSON.stringify(todos));
+};
+
 const seedTodos = [
   {
     id: 1,
-    title: 'Read a book',
+    title: 'Take a nap',
     completed: false
   },
   {
@@ -83,14 +100,19 @@ const seedTodos = [
   },
   {
     id: 5,
-    title: 'Take a nap'
+    title: 'Watch a favorite movie'
+  },
+  {
+    id: 6,
+    title: 'Take a nap',
+    completed: true
+  },
+  {
+    id: 7,
+    title: 'Run for 3 miles'
+  },
+  {
+    id: 8,
+    title: 'Attend a concert or ballet show'
   }
 ];
-
-let getTodos = function () {
-  return localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : seedTodos;
-}
-
-let setTodos = function(todos) {
-  localStorage.setItem('todos', JSON.stringify(todos));
-}

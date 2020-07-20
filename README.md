@@ -11,6 +11,18 @@ Runtime and framework specifications:
 * npm: `v6.13`
 * @vue/cli: `v4.2.3`
 
+## Quick and dirty
+
+Ensure environment above, checkout code and run:
+
+``` bash
+cd <project-root>
+# install dependencies
+npm install
+# serve with hot reload at localhost:8080
+npm run dev
+```
+
 ## Bootstrap configuration
 
 Use BootstrapVue integrate bootstrap 4 and icons.
@@ -31,6 +43,21 @@ import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 The todo form is sourcing online free photos [source.unsplash.com](https://source.unsplash.com) as live background. An example api is like `https://source.unsplash.com/1280x700/?coffee`. There is a little background change button on the footer to switch different background image categories.
 
+## Backend modes
+
+There are two backend modes supported: RESTful, and local-storage.
+
+Local-storage mode: CRUD APIs are supported by `LocalStorageApiService` with localStorage on client (browser) side. 
+This provides an easy way to run the SPA without REST web endpoints.
+
+REST mode: CRUD APIs calls are made from `ApiService` to a true REST endpoint `http://localhost:3000/todos`.
+This URL is reconfurable.
+
+The mode is set by `CRUD_API` environment variable in [`prod.env.js`](./config/prod.env.js) file.
+Uncomment this key to enable REST endpoint.
+
+A json-server based REST endpoint implementation is provided in this application to run along with SPA, see section below.
+
 ## json-server as backend REST data endpoints
 
 Json server is used and loaded with a `db.json` file as mock backend REST data service.
@@ -48,6 +75,11 @@ Alternatively, run json-server in background:
 node_modules/.bin/json-server -p 3000 db.json >> ./json-server.log 2>&1 </dev/null &
 # then tail the log
 tail -f json-server.log
+```
+
+An npm task is also created (in `package.json`) to save typing of the above.
+```bash
+npm run json-server
 ```
 
 This generates a `todos` resource endpoints: `http://localhost:3000/todos`.
@@ -75,7 +107,7 @@ The axios specific API code is externalized from vue components to separate [`Ap
 
 See usage in `toast` callback definition in [ApiService](./src/services/ApiService.js).
 
-## Run and Deployment
+## Deployment
 
 The production deployment is configured to deploy to github web page.
 To avoid gh-pages blank page (not loading js) issue, use `master` branch `docs` folder as deployed content root. 
@@ -84,7 +116,8 @@ See `config/index.js` files for custom configuration details.
 
 Since contents are now built to `docs` folder instead of `dist`, to verify with `serve`:
 ```bash
-npm run build
+# --report paramter is optional to view the bundle analyzer report
+npm run build --report
 serve -s docs
 ```
 
@@ -99,9 +132,16 @@ Don't forget to go to github repo settings page and set gh-pages branch to `mast
 
 This is composed to a bash script [`deploy-docs.sh`](./deploy-docs.sh).
 
-Now the github demo webpage is at [binlecode.github.io/example-todo-vue/index.html](https://binlecode.github.io/example-todo-vue/index.html)
+The github demo URL is at [binlecode.github.io/example-todo-vue/index.html](https://binlecode.github.io/example-todo-vue/index.html)
 
 Note if in github gh-pages setting if choose `master` branch without `docs` subfolder, the web url would then be [binlecode.github.io/example-todo-vue/docs/index.html](https://binlecode.github.io/example-todo-vue/docs/index.html).
+
+For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## Deploy with a REST backend
+
+
 
 
 ## todo
@@ -114,20 +154,5 @@ Note if in github gh-pages setting if choose `master` branch without `docs` subf
 - [x] add backend RESTful endpoint for todo CRUD (using Axios lib)
 - [ ] move same-page inline styles and js to separated .css file and load it in .vue file
 
-## Build Setup
 
-``` bash
-# install dependencies
-npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

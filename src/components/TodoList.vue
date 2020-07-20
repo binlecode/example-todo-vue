@@ -83,8 +83,12 @@
 
 <script type="text/javascript">
 import Todo from "./Todo";
-// import ApiService from '../services/ApiService';
-import ApiService from '../services/LocalStorageApiService';
+import ApiServiceRest from '../services/ApiService';
+import ApiServiceLocal from '../services/LocalStorageApiService';
+// define API service according to env set in 'prod.env.js' file
+// note that dev.env.js file loads all prod.env.js values and then apply override selectively
+console.log(`process.env.CRUD_API = ${process.env.CRUD_API}`);
+const ApiService = process.env.CRUD_API === 'REST' ? ApiServiceRest : ApiServiceLocal;
 
 export default {
   name: "todoList",

@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import "izitoast/dist/css/iziToast.min.css";
 import izitoast from "izitoast";
 
+// TODO: put this to .env file making it reconfigurable
 const baseUrl = "http://localhost:3000/todos";
 // const baseUrl = 'http://dot:3000/todos';
 // const baseUrl = 'http://134.122.19.243:3000/todos';
