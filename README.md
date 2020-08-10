@@ -154,5 +154,3 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 - [x] add backend RESTful endpoint for todo CRUD (using Axios lib)
 - [ ] move same-page inline styles and js to separated .css file and load it in .vue file
 
-
-
